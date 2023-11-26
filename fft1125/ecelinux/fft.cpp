@@ -1,5 +1,6 @@
 #include "fft.h"
 #include <cmath>  // Include the cmath header for cos and sin functions
+#include "fft_tables.cpp"  // Include the new file
 void fft(DTYPE X_R[SIZE], DTYPE X_I[SIZE]) {
     DTYPE temp_R; // temporary storage complex variable
     DTYPE temp_I; // temporary storage complex variable
@@ -21,11 +22,15 @@ void fft(DTYPE X_R[SIZE], DTYPE X_I[SIZE]) {
         k = 0;
         e = -6.283185307178 / DFTpts;
         a = 0.0;
+    initialize_lookup_tables();
     // Perform butterflies for j-th stage
     butterfly_loop:
         for (j = 0; j < numBF; j++) {
-            c = cos(a);
-            s = sin(a);
+            c = cos_lookup_table[k];
+            s = sin_lookup_table[k];
+            // k += step;
+            // c = cos(a);
+            // s = sin(a);
             a = a + e;
         // Compute butterflies that use same W**k
         dft_loop:

@@ -23,7 +23,7 @@ $(EXECUTABLE): $(OBJECTS)
 	g++ ${CFLAGS} -c $< -o $@
 
 # PHONY targets
-.PHONY: all clean fft-sw
+.PHONY: all clean fft-sw bitstream
 
 # Target to build all and run fft_test (default)
 all: $(EXECUTABLE)
@@ -35,6 +35,16 @@ fft-sw: $(EXECUTABLE)
 	@echo "Running fft sim..."
 	mkdir -p fft_result
 	./$(EXECUTABLE) | tee $@
+
+xillydemo.bit:
+	@echo "=================================================================" 
+	@echo "Synthesizing bnn and creating bitstream with $(TCL_SCRIPT)..."
+	@echo "=================================================================" 
+	$(XIL_HLS) -f $(TCL_SCRIPT)
+	source $(XILINX_VIVADO)/settings64.sh; ./run_bitstream.sh
+
+bitstream: xillydemo.bit
+	@echo "Bitstream saved to $<"
 
 # Clean up the directory
 clean:
