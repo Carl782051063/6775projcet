@@ -4,8 +4,11 @@ FPGA-Based FFT Accelerator for Voice Optimizer
 Work Jiacheng Tu, Ruyi Zhou, Klora Wang and Bolong Tan 
 
 The project structure contains three parts:
+
 1.ECElinux (code files for running software testbench on ecelinux)
+
 2.Zedboard (code files for running on ARM and FPGA based on a zybd7000)
+
 3.pythonscript (code files for convert real aduio file(.wav) to our input data format and convert the output.dat back to real audio file (.wav))
 
 If you want to replace the input auido data or want to convert the output.dat back to real aduio file(.wav), please use the code files in pythonscript.
