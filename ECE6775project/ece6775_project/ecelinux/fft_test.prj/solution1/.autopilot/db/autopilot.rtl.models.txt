@@ -1,0 +1,12 @@
+dut_faddfsub_32nsdEe
+dut_fmul_32ns_32neOg
+dut_fptrunc_64ns_fYi
+fft_cosa_lookup_tbkb
+fft_sina_lookup_tcud
+dut_fadd_32ns_32ng8j
+dut_fcmp_32ns_32nhbi
+dut_freq_V
+dut_input_real
+bit_reverse
+fft
+dut

@@ -1,0 +1,761 @@
+
+
+================================================================
+== Vivado HLS Report for 'dut'
+================================================================
+* Date:           Tue Dec  5 19:32:15 2023
+
+* Version:        2019.2.1 (Build 2724168 on Thu Dec 05 05:19:09 MST 2019)
+* Project:        fft_test.prj
+* Solution:       solution1
+* Product family: zynq
+* Target device:  xc7z020-clg484-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  | 10.00 ns | 8.456 ns |   1.25 ns  |
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+------------+----------+------------+--------+------------+---------+
+    |   Latency (cycles)   |   Latency (absolute)  |       Interval      | Pipeline|
+    |   min   |     max    |    min   |     max    |   min  |     max    |   Type  |
+    +---------+------------+----------+------------+--------+------------+---------+
+    |   845639|  6716884695| 8.456 ms | 67.169 sec |  845639|  6716884695|   none  |
+    +---------+------------+----------+------------+--------+------------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------+---------+---------+----------+-----------+-----------+-------+----------+
+        |          |  Latency (cycles) | Iteration|  Initiation Interval  |  Trip |          |
+        | Loop Name|   min   |   max   |  Latency |  achieved |   target  | Count | Pipelined|
+        +----------+---------+---------+----------+-----------+-----------+-------+----------+
+        |- Loop 1  |    32768|    32768|         2|          -|          -|  16384|    no    |
+        |- Loop 2  |    24576|   131072|  3 ~ 16  |          -|          -|   8192|    no    |
+        |- Loop 3  |     1680|     1680|        14|          -|          -|    120|    no    |
+        |- Loop 4  |    32768|    32768|         2|          -|          -|  16384|    no    |
+        |- Loop 5  |    32768|    32768|         2|          -|          -|  16384|    no    |
+        |- Loop 6  |   114688|   114688|         7|          -|          -|  16384|    no    |
+        |- Loop 7  |    49152|    49152|         3|          -|          -|  16384|    no    |
+        +----------+---------+---------+----------+-----------+-----------+-------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 1
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 49
+* Pipeline : 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 4 
+3 --> 2 
+4 --> 5 
+5 --> 6 21 
+6 --> 7 20 
+7 --> 8 
+8 --> 9 
+9 --> 10 
+10 --> 11 
+11 --> 12 
+12 --> 13 
+13 --> 14 
+14 --> 15 
+15 --> 16 
+16 --> 17 
+17 --> 18 
+18 --> 19 
+19 --> 20 
+20 --> 5 
+21 --> 22 35 
+22 --> 23 
+23 --> 24 
+24 --> 25 
+25 --> 26 
+26 --> 27 
+27 --> 28 
+28 --> 29 
+29 --> 30 
+30 --> 31 
+31 --> 32 
+32 --> 33 
+33 --> 34 
+34 --> 21 
+35 --> 36 37 
+36 --> 35 
+37 --> 38 
+38 --> 39 40 
+39 --> 38 
+40 --> 41 47 
+41 --> 42 
+42 --> 43 
+43 --> 44 
+44 --> 45 
+45 --> 46 
+46 --> 40 
+47 --> 48 
+48 --> 49 
+49 --> 47 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 1.76>
+ST_1 : Operation 50 [1/1] (0.00ns)   --->   "%empty = call i32 (...)* @_ssdm_op_SpecInterface(i32* %strm_out_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 50 'specinterface' 'empty' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 51 [1/1] (0.00ns)   --->   "%empty_12 = call i32 (...)* @_ssdm_op_SpecInterface(i32* %strm_in_V_V, [8 x i8]* @ap_fifo_str, i32 0, i32 0, [1 x i8]* @p_str, i32 0, i32 0, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, i32 2, i32 2, i32 16, i32 16, [1 x i8]* @p_str, [1 x i8]* @p_str)"   --->   Operation 51 'specinterface' 'empty_12' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 52 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecBitsMap(i32* %strm_in_V_V), !map !103"   --->   Operation 52 'specbitsmap' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 53 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecBitsMap(i32* %strm_out_V_V), !map !107"   --->   Operation 53 'specbitsmap' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 54 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecTopModule([4 x i8]* @dut_str) nounwind"   --->   Operation 54 'spectopmodule' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 55 [1/1] (0.00ns)   --->   "%input_real = alloca [16384 x float], align 16" [fft.cpp:1666]   --->   Operation 55 'alloca' 'input_real' <Predicate = true> <Delay = 0.00> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_1 : Operation 56 [1/1] (0.00ns)   --->   "%input_imag = alloca [16384 x float], align 16" [fft.cpp:1667]   --->   Operation 56 'alloca' 'input_imag' <Predicate = true> <Delay = 0.00> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_1 : Operation 57 [1/1] (1.76ns)   --->   "br label %1" [fft.cpp:1677]   --->   Operation 57 'br' <Predicate = true> <Delay = 1.76>
+
+State 2 <SV = 1> <Delay = 3.63>
+ST_2 : Operation 58 [1/1] (0.00ns)   --->   "%i_0 = phi i15 [ 0, %0 ], [ %i, %2 ]"   --->   Operation 58 'phi' 'i_0' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 59 [1/1] (2.31ns)   --->   "%icmp_ln1677 = icmp eq i15 %i_0, -16384" [fft.cpp:1677]   --->   Operation 59 'icmp' 'icmp_ln1677' <Predicate = true> <Delay = 2.31> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 60 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i64 16384, i64 16384, i64 16384)"   --->   Operation 60 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 61 [1/1] (1.94ns)   --->   "%i = add i15 %i_0, 1" [fft.cpp:1677]   --->   Operation 61 'add' 'i' <Predicate = true> <Delay = 1.94> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.94> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 62 [1/1] (0.00ns)   --->   "br i1 %icmp_ln1677, label %_ZN8ap_fixedILi16ELi15EL9ap_q_mode5EL9ap_o_mode3ELi0EEC1Ei.exit.preheader, label %2" [fft.cpp:1677]   --->   Operation 62 'br' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 63 [1/1] (3.63ns)   --->   "%tmp_V_2 = call i32 @_ssdm_op_Read.ap_fifo.volatile.i32P(i32* %strm_in_V_V)" [fft.cpp:1678]   --->   Operation 63 'read' 'tmp_V_2' <Predicate = (!icmp_ln1677)> <Delay = 3.63> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 3.63> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 32> <Depth = 0> <FIFO>
+ST_2 : Operation 64 [1/1] (0.00ns)   --->   "%p_0205_0 = alloca i14"   --->   Operation 64 'alloca' 'p_0205_0' <Predicate = (icmp_ln1677)> <Delay = 0.00>
+ST_2 : Operation 65 [1/1] (0.00ns)   --->   "%max_0 = alloca float"   --->   Operation 65 'alloca' 'max_0' <Predicate = (icmp_ln1677)> <Delay = 0.00>
+ST_2 : Operation 66 [2/2] (1.76ns)   --->   "call fastcc void @fft([16384 x float]* %input_real, [16384 x float]* %input_imag)" [fft.cpp:1686]   --->   Operation 66 'call' <Predicate = (icmp_ln1677)> <Delay = 1.76> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_2 : Operation 67 [1/1] (1.76ns)   --->   "store float 0.000000e+00, float* %max_0" [fft.cpp:1701]   --->   Operation 67 'store' <Predicate = (icmp_ln1677)> <Delay = 1.76>
+ST_2 : Operation 68 [1/1] (1.76ns)   --->   "store i14 0, i14* %p_0205_0" [fft.cpp:1701]   --->   Operation 68 'store' <Predicate = (icmp_ln1677)> <Delay = 1.76>
+
+State 3 <SV = 2> <Delay = 6.88>
+ST_3 : Operation 69 [1/1] (3.63ns)   --->   "%tmp_V_3 = call i32 @_ssdm_op_Read.ap_fifo.volatile.i32P(i32* %strm_in_V_V)" [fft.cpp:1679]   --->   Operation 69 'read' 'tmp_V_3' <Predicate = true> <Delay = 3.63> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 3.63> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 32> <Depth = 0> <FIFO>
+ST_3 : Operation 70 [1/1] (0.00ns)   --->   "%bitcast_ln1680 = bitcast i32 %tmp_V_2 to float" [fft.cpp:1680]   --->   Operation 70 'bitcast' 'bitcast_ln1680' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 71 [1/1] (0.00ns)   --->   "%bitcast_ln1681 = bitcast i32 %tmp_V_3 to float" [fft.cpp:1681]   --->   Operation 71 'bitcast' 'bitcast_ln1681' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 72 [1/1] (0.00ns)   --->   "%zext_ln1682 = zext i15 %i_0 to i64" [fft.cpp:1682]   --->   Operation 72 'zext' 'zext_ln1682' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 73 [1/1] (0.00ns)   --->   "%input_real_addr = getelementptr inbounds [16384 x float]* %input_real, i64 0, i64 %zext_ln1682" [fft.cpp:1682]   --->   Operation 73 'getelementptr' 'input_real_addr' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 74 [1/1] (3.25ns)   --->   "store float %bitcast_ln1680, float* %input_real_addr, align 4" [fft.cpp:1682]   --->   Operation 74 'store' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_3 : Operation 75 [1/1] (0.00ns)   --->   "%input_imag_addr = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %zext_ln1682" [fft.cpp:1683]   --->   Operation 75 'getelementptr' 'input_imag_addr' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 76 [1/1] (3.25ns)   --->   "store float %bitcast_ln1681, float* %input_imag_addr, align 4" [fft.cpp:1683]   --->   Operation 76 'store' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_3 : Operation 77 [1/1] (0.00ns)   --->   "br label %1" [fft.cpp:1677]   --->   Operation 77 'br' <Predicate = true> <Delay = 0.00>
+
+State 4 <SV = 2> <Delay = 1.76>
+ST_4 : Operation 78 [1/2] (0.00ns)   --->   "call fastcc void @fft([16384 x float]* %input_real, [16384 x float]* %input_imag)" [fft.cpp:1686]   --->   Operation 78 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_4 : Operation 79 [1/1] (1.76ns)   --->   "br label %.preheader412" [fft.cpp:1701]   --->   Operation 79 'br' <Predicate = true> <Delay = 1.76>
+
+State 5 <SV = 3> <Delay = 3.25>
+ST_5 : Operation 80 [1/1] (0.00ns)   --->   "%shift_idex_V_1 = phi i14 [ 0, %_ZN8ap_fixedILi16ELi15EL9ap_q_mode5EL9ap_o_mode3ELi0EEC1Ei.exit.preheader ], [ %j, %.preheader412.backedge ]"   --->   Operation 80 'phi' 'shift_idex_V_1' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 81 [1/1] (0.00ns)   --->   "%p_0205_0_load = load i14* %p_0205_0"   --->   Operation 81 'load' 'p_0205_0_load' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 82 [1/1] (2.20ns)   --->   "%icmp_ln1701 = icmp eq i14 %shift_idex_V_1, -8192" [fft.cpp:1701]   --->   Operation 82 'icmp' 'icmp_ln1701' <Predicate = true> <Delay = 2.20> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 83 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i64 8192, i64 8192, i64 8192)"   --->   Operation 83 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 84 [1/1] (1.81ns)   --->   "%j = add i14 %shift_idex_V_1, 1" [fft.cpp:1701]   --->   Operation 84 'add' 'j' <Predicate = true> <Delay = 1.81> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.94> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 85 [1/1] (0.00ns)   --->   "br i1 %icmp_ln1701, label %.preheader411.preheader, label %_ZltILi16ELi15ELb1EL9ap_q_mode5EL9ap_o_mode3ELi0EEbRK13ap_fixed_baseIXT_EXT0_EXT1_EXT2_EXT3_EXT4_EEi.exit" [fft.cpp:1701]   --->   Operation 85 'br' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 86 [1/1] (0.00ns)   --->   "%zext_ln1702 = zext i14 %shift_idex_V_1 to i64" [fft.cpp:1702]   --->   Operation 86 'zext' 'zext_ln1702' <Predicate = (!icmp_ln1701)> <Delay = 0.00>
+ST_5 : Operation 87 [1/1] (0.00ns)   --->   "%freq_V_addr = getelementptr [16384 x i15]* @freq_V, i64 0, i64 %zext_ln1702" [fft.cpp:1702]   --->   Operation 87 'getelementptr' 'freq_V_addr' <Predicate = (!icmp_ln1701)> <Delay = 0.00>
+ST_5 : Operation 88 [2/2] (3.25ns)   --->   "%base_freq_V = load i15* %freq_V_addr, align 2" [fft.cpp:1702]   --->   Operation 88 'load' 'base_freq_V' <Predicate = (!icmp_ln1701)> <Delay = 3.25> <Core = "ROM_nP">   --->   Core 52 'ROM_nP' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 15> <Depth = 16384> <ROM>
+ST_5 : Operation 89 [1/1] (1.76ns)   --->   "br label %.preheader411" [fft.cpp:1728]   --->   Operation 89 'br' <Predicate = (icmp_ln1701)> <Delay = 1.76>
+
+State 6 <SV = 4> <Delay = 6.55>
+ST_6 : Operation 90 [1/2] (3.25ns)   --->   "%base_freq_V = load i15* %freq_V_addr, align 2" [fft.cpp:1702]   --->   Operation 90 'load' 'base_freq_V' <Predicate = true> <Delay = 3.25> <Core = "ROM_nP">   --->   Core 52 'ROM_nP' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load'> <Ports = 0> <Width = 15> <Depth = 16384> <ROM>
+ST_6 : Operation 91 [1/1] (2.31ns)   --->   "%icmp_ln1495 = icmp slt i15 %base_freq_V, 40" [fft.cpp:1702]   --->   Operation 91 'icmp' 'icmp_ln1495' <Predicate = true> <Delay = 2.31> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_6 : Operation 92 [1/1] (2.31ns)   --->   "%icmp_ln1494 = icmp sgt i15 %base_freq_V, 4840" [fft.cpp:1702]   --->   Operation 92 'icmp' 'icmp_ln1494' <Predicate = true> <Delay = 2.31> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_6 : Operation 93 [1/1] (0.97ns)   --->   "%or_ln1702 = or i1 %icmp_ln1495, %icmp_ln1494" [fft.cpp:1702]   --->   Operation 93 'or' 'or_ln1702' <Predicate = true> <Delay = 0.97> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.99> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_6 : Operation 94 [1/1] (0.00ns)   --->   "%input_real_addr_4 = getelementptr inbounds [16384 x float]* %input_real, i64 0, i64 %zext_ln1702" [fft.cpp:1703]   --->   Operation 94 'getelementptr' 'input_real_addr_4' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 95 [1/1] (0.00ns)   --->   "br i1 %or_ln1702, label %_ZltILi16ELi15ELb1EL9ap_q_mode5EL9ap_o_mode3ELi0EEbRK13ap_fixed_baseIXT_EXT0_EXT1_EXT2_EXT3_EXT4_EEi.exit._crit_edge, label %3" [fft.cpp:1702]   --->   Operation 95 'br' <Predicate = true> <Delay = 0.00>
+ST_6 : Operation 96 [2/2] (3.25ns)   --->   "%input_real_load_2 = load float* %input_real_addr_4, align 4" [fft.cpp:1710]   --->   Operation 96 'load' 'input_real_load_2' <Predicate = (!or_ln1702)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_6 : Operation 97 [1/1] (0.00ns)   --->   "%input_imag_addr_7 = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %zext_ln1702" [fft.cpp:1710]   --->   Operation 97 'getelementptr' 'input_imag_addr_7' <Predicate = (!or_ln1702)> <Delay = 0.00>
+ST_6 : Operation 98 [2/2] (3.25ns)   --->   "%input_imag_load_2 = load float* %input_imag_addr_7, align 4" [fft.cpp:1710]   --->   Operation 98 'load' 'input_imag_load_2' <Predicate = (!or_ln1702)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_6 : Operation 99 [1/1] (3.25ns)   --->   "store float 0.000000e+00, float* %input_real_addr_4, align 4" [fft.cpp:1703]   --->   Operation 99 'store' <Predicate = (or_ln1702)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_6 : Operation 100 [1/1] (0.99ns)   --->   "%xor_ln1704 = xor i14 %shift_idex_V_1, -1" [fft.cpp:1704]   --->   Operation 100 'xor' 'xor_ln1704' <Predicate = (or_ln1702)> <Delay = 0.99> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.99> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_6 : Operation 101 [1/1] (0.00ns)   --->   "%zext_ln1704 = zext i14 %xor_ln1704 to i64" [fft.cpp:1704]   --->   Operation 101 'zext' 'zext_ln1704' <Predicate = (or_ln1702)> <Delay = 0.00>
+ST_6 : Operation 102 [1/1] (0.00ns)   --->   "%input_real_addr_5 = getelementptr inbounds [16384 x float]* %input_real, i64 0, i64 %zext_ln1704" [fft.cpp:1704]   --->   Operation 102 'getelementptr' 'input_real_addr_5' <Predicate = (or_ln1702)> <Delay = 0.00>
+ST_6 : Operation 103 [1/1] (3.25ns)   --->   "store float 0.000000e+00, float* %input_real_addr_5, align 4" [fft.cpp:1704]   --->   Operation 103 'store' <Predicate = (or_ln1702)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_6 : Operation 104 [1/1] (0.00ns)   --->   "%input_imag_addr_5 = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %zext_ln1702" [fft.cpp:1705]   --->   Operation 104 'getelementptr' 'input_imag_addr_5' <Predicate = (or_ln1702)> <Delay = 0.00>
+ST_6 : Operation 105 [1/1] (3.25ns)   --->   "store float 0.000000e+00, float* %input_imag_addr_5, align 4" [fft.cpp:1705]   --->   Operation 105 'store' <Predicate = (or_ln1702)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_6 : Operation 106 [1/1] (0.00ns)   --->   "%input_imag_addr_6 = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %zext_ln1704" [fft.cpp:1706]   --->   Operation 106 'getelementptr' 'input_imag_addr_6' <Predicate = (or_ln1702)> <Delay = 0.00>
+ST_6 : Operation 107 [1/1] (3.25ns)   --->   "store float 0.000000e+00, float* %input_imag_addr_6, align 4" [fft.cpp:1706]   --->   Operation 107 'store' <Predicate = (or_ln1702)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_6 : Operation 108 [1/1] (0.00ns)   --->   "br label %.preheader412.backedge" [fft.cpp:1707]   --->   Operation 108 'br' <Predicate = (or_ln1702)> <Delay = 0.00>
+
+State 7 <SV = 5> <Delay = 3.25>
+ST_7 : Operation 109 [1/2] (3.25ns)   --->   "%input_real_load_2 = load float* %input_real_addr_4, align 4" [fft.cpp:1710]   --->   Operation 109 'load' 'input_real_load_2' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_7 : Operation 110 [1/2] (3.25ns)   --->   "%input_imag_load_2 = load float* %input_imag_addr_7, align 4" [fft.cpp:1710]   --->   Operation 110 'load' 'input_imag_load_2' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+
+State 8 <SV = 6> <Delay = 5.70>
+ST_8 : Operation 111 [4/4] (5.70ns)   --->   "%tmp_3 = fmul float %input_real_load_2, %input_real_load_2" [fft.cpp:1710]   --->   Operation 111 'fmul' 'tmp_3' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_8 : Operation 112 [4/4] (5.70ns)   --->   "%tmp_4 = fmul float %input_imag_load_2, %input_imag_load_2" [fft.cpp:1710]   --->   Operation 112 'fmul' 'tmp_4' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 9 <SV = 7> <Delay = 5.70>
+ST_9 : Operation 113 [3/4] (5.70ns)   --->   "%tmp_3 = fmul float %input_real_load_2, %input_real_load_2" [fft.cpp:1710]   --->   Operation 113 'fmul' 'tmp_3' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 114 [3/4] (5.70ns)   --->   "%tmp_4 = fmul float %input_imag_load_2, %input_imag_load_2" [fft.cpp:1710]   --->   Operation 114 'fmul' 'tmp_4' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 10 <SV = 8> <Delay = 5.70>
+ST_10 : Operation 115 [2/4] (5.70ns)   --->   "%tmp_3 = fmul float %input_real_load_2, %input_real_load_2" [fft.cpp:1710]   --->   Operation 115 'fmul' 'tmp_3' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 116 [2/4] (5.70ns)   --->   "%tmp_4 = fmul float %input_imag_load_2, %input_imag_load_2" [fft.cpp:1710]   --->   Operation 116 'fmul' 'tmp_4' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 11 <SV = 9> <Delay = 5.70>
+ST_11 : Operation 117 [1/4] (5.70ns)   --->   "%tmp_3 = fmul float %input_real_load_2, %input_real_load_2" [fft.cpp:1710]   --->   Operation 117 'fmul' 'tmp_3' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_11 : Operation 118 [1/4] (5.70ns)   --->   "%tmp_4 = fmul float %input_imag_load_2, %input_imag_load_2" [fft.cpp:1710]   --->   Operation 118 'fmul' 'tmp_4' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 12 <SV = 10> <Delay = 7.25>
+ST_12 : Operation 119 [5/5] (7.25ns)   --->   "%max = fadd float %tmp_3, %tmp_4" [fft.cpp:1710]   --->   Operation 119 'fadd' 'max' <Predicate = true> <Delay = 7.25> <Core = "FAddSub">   --->   Core 105 'FAddSub' <Latency = 4> <II = 1> <Delay = 7.25> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 13 <SV = 11> <Delay = 7.25>
+ST_13 : Operation 120 [4/5] (7.25ns)   --->   "%max = fadd float %tmp_3, %tmp_4" [fft.cpp:1710]   --->   Operation 120 'fadd' 'max' <Predicate = true> <Delay = 7.25> <Core = "FAddSub">   --->   Core 105 'FAddSub' <Latency = 4> <II = 1> <Delay = 7.25> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 14 <SV = 12> <Delay = 7.25>
+ST_14 : Operation 121 [3/5] (7.25ns)   --->   "%max = fadd float %tmp_3, %tmp_4" [fft.cpp:1710]   --->   Operation 121 'fadd' 'max' <Predicate = true> <Delay = 7.25> <Core = "FAddSub">   --->   Core 105 'FAddSub' <Latency = 4> <II = 1> <Delay = 7.25> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 15 <SV = 13> <Delay = 7.25>
+ST_15 : Operation 122 [2/5] (7.25ns)   --->   "%max = fadd float %tmp_3, %tmp_4" [fft.cpp:1710]   --->   Operation 122 'fadd' 'max' <Predicate = true> <Delay = 7.25> <Core = "FAddSub">   --->   Core 105 'FAddSub' <Latency = 4> <II = 1> <Delay = 7.25> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 16 <SV = 14> <Delay = 7.25>
+ST_16 : Operation 123 [1/5] (7.25ns)   --->   "%max = fadd float %tmp_3, %tmp_4" [fft.cpp:1710]   --->   Operation 123 'fadd' 'max' <Predicate = true> <Delay = 7.25> <Core = "FAddSub">   --->   Core 105 'FAddSub' <Latency = 4> <II = 1> <Delay = 7.25> <FuncUnit> <Opcode : 'fadd' 'fsub'> <InPorts = 2> <OutPorts = 1>
+
+State 17 <SV = 15> <Delay = 5.43>
+ST_17 : Operation 124 [2/2] (5.43ns)   --->   "%tmp_5 = fcmp olt float %max, 1.000000e+00" [fft.cpp:1712]   --->   Operation 124 'fcmp' 'tmp_5' <Predicate = true> <Delay = 5.43> <Core = "FCmp">   --->   Core 111 'FCmp' <Latency = 1> <II = 1> <Delay = 5.43> <FuncUnit> <Opcode : 'fcmp'> <InPorts = 2> <OutPorts = 1>
+
+State 18 <SV = 16> <Delay = 6.40>
+ST_18 : Operation 125 [1/1] (0.00ns)   --->   "%bitcast_ln1712 = bitcast float %max to i32" [fft.cpp:1712]   --->   Operation 125 'bitcast' 'bitcast_ln1712' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 126 [1/1] (0.00ns)   --->   "%tmp = call i8 @_ssdm_op_PartSelect.i8.i32.i32.i32(i32 %bitcast_ln1712, i32 23, i32 30)" [fft.cpp:1712]   --->   Operation 126 'partselect' 'tmp' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 127 [1/1] (0.00ns)   --->   "%trunc_ln1712 = trunc i32 %bitcast_ln1712 to i23" [fft.cpp:1712]   --->   Operation 127 'trunc' 'trunc_ln1712' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 128 [1/1] (1.55ns)   --->   "%icmp_ln1712 = icmp ne i8 %tmp, -1" [fft.cpp:1712]   --->   Operation 128 'icmp' 'icmp_ln1712' <Predicate = true> <Delay = 1.55> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 129 [1/1] (2.44ns)   --->   "%icmp_ln1712_1 = icmp eq i23 %trunc_ln1712, 0" [fft.cpp:1712]   --->   Operation 129 'icmp' 'icmp_ln1712_1' <Predicate = true> <Delay = 2.44> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 130 [1/1] (0.97ns)   --->   "%or_ln1712 = or i1 %icmp_ln1712_1, %icmp_ln1712" [fft.cpp:1712]   --->   Operation 130 'or' 'or_ln1712' <Predicate = true> <Delay = 0.97> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.99> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 131 [1/2] (5.43ns)   --->   "%tmp_5 = fcmp olt float %max, 1.000000e+00" [fft.cpp:1712]   --->   Operation 131 'fcmp' 'tmp_5' <Predicate = true> <Delay = 5.43> <Core = "FCmp">   --->   Core 111 'FCmp' <Latency = 1> <II = 1> <Delay = 5.43> <FuncUnit> <Opcode : 'fcmp'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 132 [1/1] (0.97ns)   --->   "%and_ln1712 = and i1 %or_ln1712, %tmp_5" [fft.cpp:1712]   --->   Operation 132 'and' 'and_ln1712' <Predicate = true> <Delay = 0.97> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.99> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 133 [1/1] (0.00ns)   --->   "br i1 %and_ln1712, label %4, label %._crit_edge" [fft.cpp:1712]   --->   Operation 133 'br' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 134 [1/1] (3.25ns)   --->   "store float 0.000000e+00, float* %input_real_addr_4, align 4" [fft.cpp:1713]   --->   Operation 134 'store' <Predicate = (and_ln1712)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_18 : Operation 135 [1/1] (0.99ns)   --->   "%xor_ln1714 = xor i14 %shift_idex_V_1, -1" [fft.cpp:1714]   --->   Operation 135 'xor' 'xor_ln1714' <Predicate = (and_ln1712)> <Delay = 0.99> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.99> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_18 : Operation 136 [1/1] (0.00ns)   --->   "%zext_ln1714 = zext i14 %xor_ln1714 to i64" [fft.cpp:1714]   --->   Operation 136 'zext' 'zext_ln1714' <Predicate = (and_ln1712)> <Delay = 0.00>
+ST_18 : Operation 137 [1/1] (0.00ns)   --->   "%input_real_addr_6 = getelementptr inbounds [16384 x float]* %input_real, i64 0, i64 %zext_ln1714" [fft.cpp:1714]   --->   Operation 137 'getelementptr' 'input_real_addr_6' <Predicate = (and_ln1712)> <Delay = 0.00>
+ST_18 : Operation 138 [1/1] (3.25ns)   --->   "store float 0.000000e+00, float* %input_real_addr_6, align 4" [fft.cpp:1714]   --->   Operation 138 'store' <Predicate = (and_ln1712)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_18 : Operation 139 [1/1] (3.25ns)   --->   "store float 0.000000e+00, float* %input_imag_addr_7, align 4" [fft.cpp:1715]   --->   Operation 139 'store' <Predicate = (and_ln1712)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_18 : Operation 140 [1/1] (0.00ns)   --->   "%input_imag_addr_8 = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %zext_ln1714" [fft.cpp:1716]   --->   Operation 140 'getelementptr' 'input_imag_addr_8' <Predicate = (and_ln1712)> <Delay = 0.00>
+ST_18 : Operation 141 [1/1] (3.25ns)   --->   "store float 0.000000e+00, float* %input_imag_addr_8, align 4" [fft.cpp:1716]   --->   Operation 141 'store' <Predicate = (and_ln1712)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_18 : Operation 142 [1/1] (0.00ns)   --->   "br label %._crit_edge" [fft.cpp:1717]   --->   Operation 142 'br' <Predicate = (and_ln1712)> <Delay = 0.00>
+ST_18 : Operation 143 [1/1] (0.00ns)   --->   "%max_0_load = load float* %max_0" [fft.cpp:1719]   --->   Operation 143 'load' 'max_0_load' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 144 [2/2] (5.43ns)   --->   "%tmp_10 = fcmp ogt float %max, %max_0_load" [fft.cpp:1719]   --->   Operation 144 'fcmp' 'tmp_10' <Predicate = true> <Delay = 5.43> <Core = "FCmp">   --->   Core 111 'FCmp' <Latency = 1> <II = 1> <Delay = 5.43> <FuncUnit> <Opcode : 'fcmp'> <InPorts = 2> <OutPorts = 1>
+
+State 19 <SV = 17> <Delay = 7.11>
+ST_19 : Operation 145 [1/1] (0.00ns)   --->   "%bitcast_ln1719 = bitcast float %max_0_load to i32" [fft.cpp:1719]   --->   Operation 145 'bitcast' 'bitcast_ln1719' <Predicate = true> <Delay = 0.00>
+ST_19 : Operation 146 [1/1] (0.00ns)   --->   "%tmp_6 = call i8 @_ssdm_op_PartSelect.i8.i32.i32.i32(i32 %bitcast_ln1719, i32 23, i32 30)" [fft.cpp:1719]   --->   Operation 146 'partselect' 'tmp_6' <Predicate = true> <Delay = 0.00>
+ST_19 : Operation 147 [1/1] (0.00ns)   --->   "%trunc_ln1719 = trunc i32 %bitcast_ln1719 to i23" [fft.cpp:1719]   --->   Operation 147 'trunc' 'trunc_ln1719' <Predicate = true> <Delay = 0.00>
+ST_19 : Operation 148 [1/1] (1.55ns)   --->   "%icmp_ln1719 = icmp ne i8 %tmp_6, -1" [fft.cpp:1719]   --->   Operation 148 'icmp' 'icmp_ln1719' <Predicate = true> <Delay = 1.55> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_19 : Operation 149 [1/1] (2.44ns)   --->   "%icmp_ln1719_1 = icmp eq i23 %trunc_ln1719, 0" [fft.cpp:1719]   --->   Operation 149 'icmp' 'icmp_ln1719_1' <Predicate = true> <Delay = 2.44> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_19 : Operation 150 [1/1] (0.00ns) (grouped into LUT with out node and_ln1719_1)   --->   "%or_ln1719 = or i1 %icmp_ln1719_1, %icmp_ln1719" [fft.cpp:1719]   --->   Operation 150 'or' 'or_ln1719' <Predicate = true> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.99> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_19 : Operation 151 [1/1] (0.00ns) (grouped into LUT with out node and_ln1719_1)   --->   "%and_ln1719 = and i1 %or_ln1712, %or_ln1719" [fft.cpp:1719]   --->   Operation 151 'and' 'and_ln1719' <Predicate = true> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.99> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_19 : Operation 152 [1/2] (5.43ns)   --->   "%tmp_10 = fcmp ogt float %max, %max_0_load" [fft.cpp:1719]   --->   Operation 152 'fcmp' 'tmp_10' <Predicate = true> <Delay = 5.43> <Core = "FCmp">   --->   Core 111 'FCmp' <Latency = 1> <II = 1> <Delay = 5.43> <FuncUnit> <Opcode : 'fcmp'> <InPorts = 2> <OutPorts = 1>
+ST_19 : Operation 153 [1/1] (0.97ns) (out node of the LUT)   --->   "%and_ln1719_1 = and i1 %and_ln1719, %tmp_10" [fft.cpp:1719]   --->   Operation 153 'and' 'and_ln1719_1' <Predicate = true> <Delay = 0.97> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.99> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_19 : Operation 154 [1/1] (0.70ns)   --->   "%select_ln1719 = select i1 %and_ln1719_1, i14 %shift_idex_V_1, i14 %p_0205_0_load" [fft.cpp:1719]   --->   Operation 154 'select' 'select_ln1719' <Predicate = true> <Delay = 0.70> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.69> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_19 : Operation 155 [1/1] (0.69ns)   --->   "%select_ln1719_1 = select i1 %and_ln1719_1, float %max, float %max_0_load" [fft.cpp:1719]   --->   Operation 155 'select' 'select_ln1719_1' <Predicate = true> <Delay = 0.69> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.69> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+
+State 20 <SV = 18> <Delay = 1.76>
+ST_20 : Operation 156 [1/1] (1.76ns)   --->   "store float %select_ln1719_1, float* %max_0" [fft.cpp:1719]   --->   Operation 156 'store' <Predicate = (!or_ln1702)> <Delay = 1.76>
+ST_20 : Operation 157 [1/1] (1.76ns)   --->   "store i14 %select_ln1719, i14* %p_0205_0" [fft.cpp:1719]   --->   Operation 157 'store' <Predicate = (!or_ln1702)> <Delay = 1.76>
+ST_20 : Operation 158 [1/1] (0.00ns)   --->   "br label %.preheader412.backedge" [fft.cpp:1719]   --->   Operation 158 'br' <Predicate = (!or_ln1702)> <Delay = 0.00>
+ST_20 : Operation 159 [1/1] (0.00ns)   --->   "br label %.preheader412"   --->   Operation 159 'br' <Predicate = true> <Delay = 0.00>
+
+State 21 <SV = 4> <Delay = 5.06>
+ST_21 : Operation 160 [1/1] (0.00ns)   --->   "%t_V = phi i14 [ %shift_idex_V, %5 ], [ %p_0205_0_load, %.preheader411.preheader ]"   --->   Operation 160 'phi' 't_V' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 161 [1/1] (0.00ns)   --->   "%z_0 = phi i8 [ %z, %5 ], [ 110, %.preheader411.preheader ]"   --->   Operation 161 'phi' 'z_0' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 162 [1/1] (0.00ns)   --->   "%zext_ln1728 = zext i8 %z_0 to i9" [fft.cpp:1728]   --->   Operation 162 'zext' 'zext_ln1728' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 163 [1/1] (1.55ns)   --->   "%icmp_ln1728 = icmp eq i8 %z_0, -26" [fft.cpp:1728]   --->   Operation 163 'icmp' 'icmp_ln1728' <Predicate = true> <Delay = 1.55> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 164 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i64 120, i64 120, i64 120)"   --->   Operation 164 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 165 [1/1] (0.00ns)   --->   "br i1 %icmp_ln1728, label %.preheader406.preheader, label %5" [fft.cpp:1728]   --->   Operation 165 'br' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 166 [1/1] (0.00ns)   --->   "%zext_ln215 = zext i14 %t_V to i15" [fft.cpp:1729]   --->   Operation 166 'zext' 'zext_ln215' <Predicate = (!icmp_ln1728)> <Delay = 0.00>
+ST_21 : Operation 167 [1/1] (1.81ns)   --->   "%ret_V = add i15 %zext_ln215, -60" [fft.cpp:1729]   --->   Operation 167 'add' 'ret_V' <Predicate = (!icmp_ln1728)> <Delay = 1.81> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.94> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 168 [1/1] (0.00ns)   --->   "%sext_ln544 = sext i15 %ret_V to i64" [fft.cpp:1729]   --->   Operation 168 'sext' 'sext_ln544' <Predicate = (!icmp_ln1728)> <Delay = 0.00>
+ST_21 : Operation 169 [1/1] (0.00ns)   --->   "%input_real_addr_1 = getelementptr inbounds [16384 x float]* %input_real, i64 0, i64 %sext_ln544" [fft.cpp:1729]   --->   Operation 169 'getelementptr' 'input_real_addr_1' <Predicate = (!icmp_ln1728)> <Delay = 0.00>
+ST_21 : Operation 170 [2/2] (3.25ns)   --->   "%input_real_load = load float* %input_real_addr_1, align 4" [fft.cpp:1729]   --->   Operation 170 'load' 'input_real_load' <Predicate = (!icmp_ln1728)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_21 : Operation 171 [1/1] (0.00ns)   --->   "%input_imag_addr_1 = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %sext_ln544" [fft.cpp:1730]   --->   Operation 171 'getelementptr' 'input_imag_addr_1' <Predicate = (!icmp_ln1728)> <Delay = 0.00>
+ST_21 : Operation 172 [2/2] (3.25ns)   --->   "%input_imag_load = load float* %input_imag_addr_1, align 4" [fft.cpp:1730]   --->   Operation 172 'load' 'input_imag_load' <Predicate = (!icmp_ln1728)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_21 : Operation 173 [1/1] (1.81ns)   --->   "%shift_idex_V = add i14 %t_V, 1" [fft.cpp:1733]   --->   Operation 173 'add' 'shift_idex_V' <Predicate = (!icmp_ln1728)> <Delay = 1.81> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.94> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 174 [1/1] (1.76ns)   --->   "br label %.preheader406" [fft.cpp:1738]   --->   Operation 174 'br' <Predicate = (icmp_ln1728)> <Delay = 1.76>
+
+State 22 <SV = 5> <Delay = 3.25>
+ST_22 : Operation 175 [1/2] (3.25ns)   --->   "%input_real_load = load float* %input_real_addr_1, align 4" [fft.cpp:1729]   --->   Operation 175 'load' 'input_real_load' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_22 : Operation 176 [1/2] (3.25ns)   --->   "%input_imag_load = load float* %input_imag_addr_1, align 4" [fft.cpp:1730]   --->   Operation 176 'load' 'input_imag_load' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+
+State 23 <SV = 6> <Delay = 5.70>
+ST_23 : Operation 177 [4/4] (5.70ns)   --->   "%tmp_9 = fmul float %input_real_load, 2.000000e+00" [fft.cpp:1729]   --->   Operation 177 'fmul' 'tmp_9' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_23 : Operation 178 [4/4] (5.70ns)   --->   "%tmp_s = fmul float %input_imag_load, 2.000000e+00" [fft.cpp:1730]   --->   Operation 178 'fmul' 'tmp_s' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 24 <SV = 7> <Delay = 5.70>
+ST_24 : Operation 179 [3/4] (5.70ns)   --->   "%tmp_9 = fmul float %input_real_load, 2.000000e+00" [fft.cpp:1729]   --->   Operation 179 'fmul' 'tmp_9' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_24 : Operation 180 [3/4] (5.70ns)   --->   "%tmp_s = fmul float %input_imag_load, 2.000000e+00" [fft.cpp:1730]   --->   Operation 180 'fmul' 'tmp_s' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 25 <SV = 8> <Delay = 5.70>
+ST_25 : Operation 181 [2/4] (5.70ns)   --->   "%tmp_9 = fmul float %input_real_load, 2.000000e+00" [fft.cpp:1729]   --->   Operation 181 'fmul' 'tmp_9' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_25 : Operation 182 [2/4] (5.70ns)   --->   "%tmp_s = fmul float %input_imag_load, 2.000000e+00" [fft.cpp:1730]   --->   Operation 182 'fmul' 'tmp_s' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 26 <SV = 9> <Delay = 5.70>
+ST_26 : Operation 183 [1/4] (5.70ns)   --->   "%tmp_9 = fmul float %input_real_load, 2.000000e+00" [fft.cpp:1729]   --->   Operation 183 'fmul' 'tmp_9' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_26 : Operation 184 [1/4] (5.70ns)   --->   "%tmp_s = fmul float %input_imag_load, 2.000000e+00" [fft.cpp:1730]   --->   Operation 184 'fmul' 'tmp_s' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 27 <SV = 10> <Delay = 3.25>
+ST_27 : Operation 185 [1/1] (0.00ns)   --->   "%zext_ln1729 = zext i8 %z_0 to i64" [fft.cpp:1729]   --->   Operation 185 'zext' 'zext_ln1729' <Predicate = true> <Delay = 0.00>
+ST_27 : Operation 186 [1/1] (0.00ns)   --->   "%input_real_addr_2 = getelementptr inbounds [16384 x float]* %input_real, i64 0, i64 %zext_ln1729" [fft.cpp:1729]   --->   Operation 186 'getelementptr' 'input_real_addr_2' <Predicate = true> <Delay = 0.00>
+ST_27 : Operation 187 [1/1] (3.25ns)   --->   "store float %tmp_9, float* %input_real_addr_2, align 4" [fft.cpp:1729]   --->   Operation 187 'store' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_27 : Operation 188 [1/1] (0.00ns)   --->   "%input_imag_addr_2 = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %zext_ln1729" [fft.cpp:1730]   --->   Operation 188 'getelementptr' 'input_imag_addr_2' <Predicate = true> <Delay = 0.00>
+ST_27 : Operation 189 [1/1] (3.25ns)   --->   "store float %tmp_s, float* %input_imag_addr_2, align 4" [fft.cpp:1730]   --->   Operation 189 'store' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_27 : Operation 190 [1/1] (1.91ns)   --->   "%z = add i8 %z_0, 1" [fft.cpp:1728]   --->   Operation 190 'add' 'z' <Predicate = true> <Delay = 1.91> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.94> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+
+State 28 <SV = 11> <Delay = 3.25>
+ST_28 : Operation 191 [2/2] (3.25ns)   --->   "%input_real_load_1 = load float* %input_real_addr_1, align 4" [fft.cpp:1731]   --->   Operation 191 'load' 'input_real_load_1' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_28 : Operation 192 [2/2] (3.25ns)   --->   "%input_imag_load_1 = load float* %input_imag_addr_1, align 4" [fft.cpp:1732]   --->   Operation 192 'load' 'input_imag_load_1' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+
+State 29 <SV = 12> <Delay = 3.25>
+ST_29 : Operation 193 [1/2] (3.25ns)   --->   "%input_real_load_1 = load float* %input_real_addr_1, align 4" [fft.cpp:1731]   --->   Operation 193 'load' 'input_real_load_1' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_29 : Operation 194 [1/2] (3.25ns)   --->   "%input_imag_load_1 = load float* %input_imag_addr_1, align 4" [fft.cpp:1732]   --->   Operation 194 'load' 'input_imag_load_1' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+
+State 30 <SV = 13> <Delay = 5.70>
+ST_30 : Operation 195 [4/4] (5.70ns)   --->   "%tmp_1 = fmul float %input_real_load_1, 2.000000e+00" [fft.cpp:1731]   --->   Operation 195 'fmul' 'tmp_1' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_30 : Operation 196 [4/4] (5.70ns)   --->   "%tmp_2 = fmul float %input_imag_load_1, 2.000000e+00" [fft.cpp:1732]   --->   Operation 196 'fmul' 'tmp_2' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 31 <SV = 14> <Delay = 5.70>
+ST_31 : Operation 197 [3/4] (5.70ns)   --->   "%tmp_1 = fmul float %input_real_load_1, 2.000000e+00" [fft.cpp:1731]   --->   Operation 197 'fmul' 'tmp_1' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_31 : Operation 198 [3/4] (5.70ns)   --->   "%tmp_2 = fmul float %input_imag_load_1, 2.000000e+00" [fft.cpp:1732]   --->   Operation 198 'fmul' 'tmp_2' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 32 <SV = 15> <Delay = 5.70>
+ST_32 : Operation 199 [2/4] (5.70ns)   --->   "%tmp_1 = fmul float %input_real_load_1, 2.000000e+00" [fft.cpp:1731]   --->   Operation 199 'fmul' 'tmp_1' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_32 : Operation 200 [2/4] (5.70ns)   --->   "%tmp_2 = fmul float %input_imag_load_1, 2.000000e+00" [fft.cpp:1732]   --->   Operation 200 'fmul' 'tmp_2' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 33 <SV = 16> <Delay = 5.70>
+ST_33 : Operation 201 [1/4] (5.70ns)   --->   "%tmp_1 = fmul float %input_real_load_1, 2.000000e+00" [fft.cpp:1731]   --->   Operation 201 'fmul' 'tmp_1' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_33 : Operation 202 [1/4] (5.70ns)   --->   "%tmp_2 = fmul float %input_imag_load_1, 2.000000e+00" [fft.cpp:1732]   --->   Operation 202 'fmul' 'tmp_2' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 34 <SV = 17> <Delay = 4.24>
+ST_34 : Operation 203 [1/1] (0.99ns)   --->   "%xor_ln1731 = xor i9 %zext_ln1728, -1" [fft.cpp:1731]   --->   Operation 203 'xor' 'xor_ln1731' <Predicate = true> <Delay = 0.99> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.99> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 204 [1/1] (0.00ns)   --->   "%sext_ln1731 = sext i9 %xor_ln1731 to i14" [fft.cpp:1731]   --->   Operation 204 'sext' 'sext_ln1731' <Predicate = true> <Delay = 0.00>
+ST_34 : Operation 205 [1/1] (0.00ns)   --->   "%zext_ln1731 = zext i14 %sext_ln1731 to i64" [fft.cpp:1731]   --->   Operation 205 'zext' 'zext_ln1731' <Predicate = true> <Delay = 0.00>
+ST_34 : Operation 206 [1/1] (0.00ns)   --->   "%input_real_addr_3 = getelementptr inbounds [16384 x float]* %input_real, i64 0, i64 %zext_ln1731" [fft.cpp:1731]   --->   Operation 206 'getelementptr' 'input_real_addr_3' <Predicate = true> <Delay = 0.00>
+ST_34 : Operation 207 [1/1] (3.25ns)   --->   "store float %tmp_1, float* %input_real_addr_3, align 4" [fft.cpp:1731]   --->   Operation 207 'store' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_34 : Operation 208 [1/1] (0.00ns)   --->   "%input_imag_addr_3 = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %zext_ln1731" [fft.cpp:1732]   --->   Operation 208 'getelementptr' 'input_imag_addr_3' <Predicate = true> <Delay = 0.00>
+ST_34 : Operation 209 [1/1] (3.25ns)   --->   "store float %tmp_2, float* %input_imag_addr_3, align 4" [fft.cpp:1732]   --->   Operation 209 'store' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_34 : Operation 210 [1/1] (0.00ns)   --->   "br label %.preheader411" [fft.cpp:1728]   --->   Operation 210 'br' <Predicate = true> <Delay = 0.00>
+
+State 35 <SV = 5> <Delay = 3.25>
+ST_35 : Operation 211 [1/1] (0.00ns)   --->   "%i2_0 = phi i15 [ %i_2, %6 ], [ 0, %.preheader406.preheader ]"   --->   Operation 211 'phi' 'i2_0' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 212 [1/1] (2.31ns)   --->   "%icmp_ln1738 = icmp eq i15 %i2_0, -16384" [fft.cpp:1738]   --->   Operation 212 'icmp' 'icmp_ln1738' <Predicate = true> <Delay = 2.31> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 213 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i64 16384, i64 16384, i64 16384)"   --->   Operation 213 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 214 [1/1] (1.94ns)   --->   "%i_2 = add i15 %i2_0, 1" [fft.cpp:1738]   --->   Operation 214 'add' 'i_2' <Predicate = true> <Delay = 1.94> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.94> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 215 [1/1] (0.00ns)   --->   "br i1 %icmp_ln1738, label %7, label %6" [fft.cpp:1738]   --->   Operation 215 'br' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 216 [1/1] (0.00ns)   --->   "%zext_ln1739 = zext i15 %i2_0 to i64" [fft.cpp:1739]   --->   Operation 216 'zext' 'zext_ln1739' <Predicate = (!icmp_ln1738)> <Delay = 0.00>
+ST_35 : Operation 217 [1/1] (0.00ns)   --->   "%input_imag_addr_4 = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %zext_ln1739" [fft.cpp:1739]   --->   Operation 217 'getelementptr' 'input_imag_addr_4' <Predicate = (!icmp_ln1738)> <Delay = 0.00>
+ST_35 : Operation 218 [2/2] (3.25ns)   --->   "%input_imag_load_3 = load float* %input_imag_addr_4, align 4" [fft.cpp:1739]   --->   Operation 218 'load' 'input_imag_load_3' <Predicate = (!icmp_ln1738)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_35 : Operation 219 [2/2] (1.76ns)   --->   "call fastcc void @fft([16384 x float]* %input_real, [16384 x float]* %input_imag)" [fft.cpp:1741]   --->   Operation 219 'call' <Predicate = (icmp_ln1738)> <Delay = 1.76> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 36 <SV = 6> <Delay = 7.50>
+ST_36 : Operation 220 [1/2] (3.25ns)   --->   "%input_imag_load_3 = load float* %input_imag_addr_4, align 4" [fft.cpp:1739]   --->   Operation 220 'load' 'input_imag_load_3' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_36 : Operation 221 [1/1] (0.00ns)   --->   "%bitcast_ln1739 = bitcast float %input_imag_load_3 to i32" [fft.cpp:1739]   --->   Operation 221 'bitcast' 'bitcast_ln1739' <Predicate = true> <Delay = 0.00>
+ST_36 : Operation 222 [1/1] (0.99ns)   --->   "%xor_ln1739 = xor i32 %bitcast_ln1739, -2147483648" [fft.cpp:1739]   --->   Operation 222 'xor' 'xor_ln1739' <Predicate = true> <Delay = 0.99> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.99> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_36 : Operation 223 [1/1] (0.00ns)   --->   "%bitcast_ln1739_1 = bitcast i32 %xor_ln1739 to float" [fft.cpp:1739]   --->   Operation 223 'bitcast' 'bitcast_ln1739_1' <Predicate = true> <Delay = 0.00>
+ST_36 : Operation 224 [1/1] (3.25ns)   --->   "store float %bitcast_ln1739_1, float* %input_imag_addr_4, align 4" [fft.cpp:1739]   --->   Operation 224 'store' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_36 : Operation 225 [1/1] (0.00ns)   --->   "br label %.preheader406" [fft.cpp:1738]   --->   Operation 225 'br' <Predicate = true> <Delay = 0.00>
+
+State 37 <SV = 6> <Delay = 1.76>
+ST_37 : Operation 226 [1/2] (0.00ns)   --->   "call fastcc void @fft([16384 x float]* %input_real, [16384 x float]* %input_imag)" [fft.cpp:1741]   --->   Operation 226 'call' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_37 : Operation 227 [1/1] (1.76ns)   --->   "br label %8" [fft.cpp:1743]   --->   Operation 227 'br' <Predicate = true> <Delay = 1.76>
+
+State 38 <SV = 7> <Delay = 3.25>
+ST_38 : Operation 228 [1/1] (0.00ns)   --->   "%i3_0 = phi i15 [ 0, %7 ], [ %i_3, %9 ]"   --->   Operation 228 'phi' 'i3_0' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 229 [1/1] (2.31ns)   --->   "%icmp_ln1743 = icmp eq i15 %i3_0, -16384" [fft.cpp:1743]   --->   Operation 229 'icmp' 'icmp_ln1743' <Predicate = true> <Delay = 2.31> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_38 : Operation 230 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i64 16384, i64 16384, i64 16384)"   --->   Operation 230 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 231 [1/1] (1.94ns)   --->   "%i_3 = add i15 %i3_0, 1" [fft.cpp:1743]   --->   Operation 231 'add' 'i_3' <Predicate = true> <Delay = 1.94> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.94> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_38 : Operation 232 [1/1] (0.00ns)   --->   "br i1 %icmp_ln1743, label %.preheader405.preheader, label %9" [fft.cpp:1743]   --->   Operation 232 'br' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 233 [1/1] (0.00ns)   --->   "%zext_ln1744 = zext i15 %i3_0 to i64" [fft.cpp:1744]   --->   Operation 233 'zext' 'zext_ln1744' <Predicate = (!icmp_ln1743)> <Delay = 0.00>
+ST_38 : Operation 234 [1/1] (0.00ns)   --->   "%input_imag_addr_9 = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %zext_ln1744" [fft.cpp:1744]   --->   Operation 234 'getelementptr' 'input_imag_addr_9' <Predicate = (!icmp_ln1743)> <Delay = 0.00>
+ST_38 : Operation 235 [2/2] (3.25ns)   --->   "%input_imag_load_4 = load float* %input_imag_addr_9, align 4" [fft.cpp:1744]   --->   Operation 235 'load' 'input_imag_load_4' <Predicate = (!icmp_ln1743)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_38 : Operation 236 [1/1] (1.76ns)   --->   "br label %.preheader405" [fft.cpp:1746]   --->   Operation 236 'br' <Predicate = (icmp_ln1743)> <Delay = 1.76>
+
+State 39 <SV = 8> <Delay = 7.50>
+ST_39 : Operation 237 [1/2] (3.25ns)   --->   "%input_imag_load_4 = load float* %input_imag_addr_9, align 4" [fft.cpp:1744]   --->   Operation 237 'load' 'input_imag_load_4' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_39 : Operation 238 [1/1] (0.00ns)   --->   "%bitcast_ln1744 = bitcast float %input_imag_load_4 to i32" [fft.cpp:1744]   --->   Operation 238 'bitcast' 'bitcast_ln1744' <Predicate = true> <Delay = 0.00>
+ST_39 : Operation 239 [1/1] (0.99ns)   --->   "%xor_ln1744 = xor i32 %bitcast_ln1744, -2147483648" [fft.cpp:1744]   --->   Operation 239 'xor' 'xor_ln1744' <Predicate = true> <Delay = 0.99> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.99> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_39 : Operation 240 [1/1] (0.00ns)   --->   "%bitcast_ln1744_1 = bitcast i32 %xor_ln1744 to float" [fft.cpp:1744]   --->   Operation 240 'bitcast' 'bitcast_ln1744_1' <Predicate = true> <Delay = 0.00>
+ST_39 : Operation 241 [1/1] (3.25ns)   --->   "store float %bitcast_ln1744_1, float* %input_imag_addr_9, align 4" [fft.cpp:1744]   --->   Operation 241 'store' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_39 : Operation 242 [1/1] (0.00ns)   --->   "br label %8" [fft.cpp:1743]   --->   Operation 242 'br' <Predicate = true> <Delay = 0.00>
+
+State 40 <SV = 8> <Delay = 3.25>
+ST_40 : Operation 243 [1/1] (0.00ns)   --->   "%i4_0 = phi i15 [ %i_4, %10 ], [ 0, %.preheader405.preheader ]"   --->   Operation 243 'phi' 'i4_0' <Predicate = true> <Delay = 0.00>
+ST_40 : Operation 244 [1/1] (2.31ns)   --->   "%icmp_ln1746 = icmp eq i15 %i4_0, -16384" [fft.cpp:1746]   --->   Operation 244 'icmp' 'icmp_ln1746' <Predicate = true> <Delay = 2.31> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_40 : Operation 245 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i64 16384, i64 16384, i64 16384)"   --->   Operation 245 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_40 : Operation 246 [1/1] (1.94ns)   --->   "%i_4 = add i15 %i4_0, 1" [fft.cpp:1746]   --->   Operation 246 'add' 'i_4' <Predicate = true> <Delay = 1.94> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.94> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_40 : Operation 247 [1/1] (0.00ns)   --->   "br i1 %icmp_ln1746, label %.preheader.preheader, label %10" [fft.cpp:1746]   --->   Operation 247 'br' <Predicate = true> <Delay = 0.00>
+ST_40 : Operation 248 [1/1] (0.00ns)   --->   "%zext_ln1747 = zext i15 %i4_0 to i64" [fft.cpp:1747]   --->   Operation 248 'zext' 'zext_ln1747' <Predicate = (!icmp_ln1746)> <Delay = 0.00>
+ST_40 : Operation 249 [1/1] (0.00ns)   --->   "%input_real_addr_7 = getelementptr inbounds [16384 x float]* %input_real, i64 0, i64 %zext_ln1747" [fft.cpp:1747]   --->   Operation 249 'getelementptr' 'input_real_addr_7' <Predicate = (!icmp_ln1746)> <Delay = 0.00>
+ST_40 : Operation 250 [2/2] (3.25ns)   --->   "%input_real_load_3 = load float* %input_real_addr_7, align 4" [fft.cpp:1747]   --->   Operation 250 'load' 'input_real_load_3' <Predicate = (!icmp_ln1746)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_40 : Operation 251 [1/1] (0.00ns)   --->   "%input_imag_addr_10 = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %zext_ln1747" [fft.cpp:1748]   --->   Operation 251 'getelementptr' 'input_imag_addr_10' <Predicate = (!icmp_ln1746)> <Delay = 0.00>
+ST_40 : Operation 252 [2/2] (3.25ns)   --->   "%input_imag_load_5 = load float* %input_imag_addr_10, align 4" [fft.cpp:1748]   --->   Operation 252 'load' 'input_imag_load_5' <Predicate = (!icmp_ln1746)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_40 : Operation 253 [1/1] (1.76ns)   --->   "br label %.preheader" [fft.cpp:1750]   --->   Operation 253 'br' <Predicate = (icmp_ln1746)> <Delay = 1.76>
+
+State 41 <SV = 9> <Delay = 3.25>
+ST_41 : Operation 254 [1/2] (3.25ns)   --->   "%input_real_load_3 = load float* %input_real_addr_7, align 4" [fft.cpp:1747]   --->   Operation 254 'load' 'input_real_load_3' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_41 : Operation 255 [1/2] (3.25ns)   --->   "%input_imag_load_5 = load float* %input_imag_addr_10, align 4" [fft.cpp:1748]   --->   Operation 255 'load' 'input_imag_load_5' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+
+State 42 <SV = 10> <Delay = 5.70>
+ST_42 : Operation 256 [4/4] (5.70ns)   --->   "%tmp_7 = fmul float %input_real_load_3, 0x3F10000000000000" [fft.cpp:1747]   --->   Operation 256 'fmul' 'tmp_7' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_42 : Operation 257 [4/4] (5.70ns)   --->   "%tmp_8 = fmul float %input_imag_load_5, 0x3F10000000000000" [fft.cpp:1748]   --->   Operation 257 'fmul' 'tmp_8' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 43 <SV = 11> <Delay = 5.70>
+ST_43 : Operation 258 [3/4] (5.70ns)   --->   "%tmp_7 = fmul float %input_real_load_3, 0x3F10000000000000" [fft.cpp:1747]   --->   Operation 258 'fmul' 'tmp_7' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_43 : Operation 259 [3/4] (5.70ns)   --->   "%tmp_8 = fmul float %input_imag_load_5, 0x3F10000000000000" [fft.cpp:1748]   --->   Operation 259 'fmul' 'tmp_8' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 44 <SV = 12> <Delay = 5.70>
+ST_44 : Operation 260 [2/4] (5.70ns)   --->   "%tmp_7 = fmul float %input_real_load_3, 0x3F10000000000000" [fft.cpp:1747]   --->   Operation 260 'fmul' 'tmp_7' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_44 : Operation 261 [2/4] (5.70ns)   --->   "%tmp_8 = fmul float %input_imag_load_5, 0x3F10000000000000" [fft.cpp:1748]   --->   Operation 261 'fmul' 'tmp_8' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 45 <SV = 13> <Delay = 5.70>
+ST_45 : Operation 262 [1/4] (5.70ns)   --->   "%tmp_7 = fmul float %input_real_load_3, 0x3F10000000000000" [fft.cpp:1747]   --->   Operation 262 'fmul' 'tmp_7' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+ST_45 : Operation 263 [1/4] (5.70ns)   --->   "%tmp_8 = fmul float %input_imag_load_5, 0x3F10000000000000" [fft.cpp:1748]   --->   Operation 263 'fmul' 'tmp_8' <Predicate = true> <Delay = 5.70> <Core = "FMul">   --->   Core 106 'FMul' <Latency = 3> <II = 1> <Delay = 5.70> <FuncUnit> <Opcode : 'fmul'> <InPorts = 2> <OutPorts = 1>
+
+State 46 <SV = 14> <Delay = 3.25>
+ST_46 : Operation 264 [1/1] (3.25ns)   --->   "store float %tmp_7, float* %input_real_addr_7, align 4" [fft.cpp:1747]   --->   Operation 264 'store' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_46 : Operation 265 [1/1] (3.25ns)   --->   "store float %tmp_8, float* %input_imag_addr_10, align 4" [fft.cpp:1748]   --->   Operation 265 'store' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_46 : Operation 266 [1/1] (0.00ns)   --->   "br label %.preheader405" [fft.cpp:1746]   --->   Operation 266 'br' <Predicate = true> <Delay = 0.00>
+
+State 47 <SV = 9> <Delay = 3.25>
+ST_47 : Operation 267 [1/1] (0.00ns)   --->   "%i5_0 = phi i15 [ %i_5, %11 ], [ 0, %.preheader.preheader ]"   --->   Operation 267 'phi' 'i5_0' <Predicate = true> <Delay = 0.00>
+ST_47 : Operation 268 [1/1] (2.31ns)   --->   "%icmp_ln1750 = icmp eq i15 %i5_0, -16384" [fft.cpp:1750]   --->   Operation 268 'icmp' 'icmp_ln1750' <Predicate = true> <Delay = 2.31> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 2.31> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_47 : Operation 269 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i64 16384, i64 16384, i64 16384)"   --->   Operation 269 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_47 : Operation 270 [1/1] (1.94ns)   --->   "%i_5 = add i15 %i5_0, 1" [fft.cpp:1750]   --->   Operation 270 'add' 'i_5' <Predicate = true> <Delay = 1.94> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 1.94> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_47 : Operation 271 [1/1] (0.00ns)   --->   "br i1 %icmp_ln1750, label %12, label %11" [fft.cpp:1750]   --->   Operation 271 'br' <Predicate = true> <Delay = 0.00>
+ST_47 : Operation 272 [1/1] (0.00ns)   --->   "%zext_ln1751 = zext i15 %i5_0 to i64" [fft.cpp:1751]   --->   Operation 272 'zext' 'zext_ln1751' <Predicate = (!icmp_ln1750)> <Delay = 0.00>
+ST_47 : Operation 273 [1/1] (0.00ns)   --->   "%input_real_addr_8 = getelementptr inbounds [16384 x float]* %input_real, i64 0, i64 %zext_ln1751" [fft.cpp:1751]   --->   Operation 273 'getelementptr' 'input_real_addr_8' <Predicate = (!icmp_ln1750)> <Delay = 0.00>
+ST_47 : Operation 274 [2/2] (3.25ns)   --->   "%out_real = load float* %input_real_addr_8, align 4" [fft.cpp:1751]   --->   Operation 274 'load' 'out_real' <Predicate = (!icmp_ln1750)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_47 : Operation 275 [1/1] (0.00ns)   --->   "%input_imag_addr_11 = getelementptr inbounds [16384 x float]* %input_imag, i64 0, i64 %zext_ln1751" [fft.cpp:1752]   --->   Operation 275 'getelementptr' 'input_imag_addr_11' <Predicate = (!icmp_ln1750)> <Delay = 0.00>
+ST_47 : Operation 276 [2/2] (3.25ns)   --->   "%out_imag = load float* %input_imag_addr_11, align 4" [fft.cpp:1752]   --->   Operation 276 'load' 'out_imag' <Predicate = (!icmp_ln1750)> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_47 : Operation 277 [1/1] (0.00ns)   --->   "ret void" [fft.cpp:1768]   --->   Operation 277 'ret' <Predicate = (icmp_ln1750)> <Delay = 0.00>
+
+State 48 <SV = 10> <Delay = 6.88>
+ST_48 : Operation 278 [1/2] (3.25ns)   --->   "%out_real = load float* %input_real_addr_8, align 4" [fft.cpp:1751]   --->   Operation 278 'load' 'out_real' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_48 : Operation 279 [1/2] (3.25ns)   --->   "%out_imag = load float* %input_imag_addr_11, align 4" [fft.cpp:1752]   --->   Operation 279 'load' 'out_imag' <Predicate = true> <Delay = 3.25> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 3.25> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 16384> <RAM>
+ST_48 : Operation 280 [1/1] (0.00ns)   --->   "%tmp_V = bitcast float %out_real to i32" [fft.cpp:1758]   --->   Operation 280 'bitcast' 'tmp_V' <Predicate = true> <Delay = 0.00>
+ST_48 : Operation 281 [1/1] (3.63ns)   --->   "call void @_ssdm_op_Write.ap_fifo.volatile.i32P(i32* %strm_out_V_V, i32 %tmp_V)" [fft.cpp:1758]   --->   Operation 281 'write' <Predicate = true> <Delay = 3.63> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 3.63> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 32> <Depth = 0> <FIFO>
+
+State 49 <SV = 11> <Delay = 3.63>
+ST_49 : Operation 282 [1/1] (0.00ns)   --->   "%tmp_V_1 = bitcast float %out_imag to i32" [fft.cpp:1759]   --->   Operation 282 'bitcast' 'tmp_V_1' <Predicate = true> <Delay = 0.00>
+ST_49 : Operation 283 [1/1] (3.63ns)   --->   "call void @_ssdm_op_Write.ap_fifo.volatile.i32P(i32* %strm_out_V_V, i32 %tmp_V_1)" [fft.cpp:1759]   --->   Operation 283 'write' <Predicate = true> <Delay = 3.63> <Core = "FIFO">   --->   Core 32 'FIFO' <Latency = 0> <II = 1> <Delay = 3.63> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 32> <Depth = 0> <FIFO>
+ST_49 : Operation 284 [1/1] (0.00ns)   --->   "br label %.preheader" [fft.cpp:1750]   --->   Operation 284 'br' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 10ns, clock uncertainty: 1.25ns.
+
+ <State 1>: 1.77ns
+The critical path consists of the following:
+	multiplexor before 'phi' operation ('i') with incoming values : ('i', fft.cpp:1677) [18]  (1.77 ns)
+
+ <State 2>: 3.63ns
+The critical path consists of the following:
+	fifo read on port 'strm_in_V_V' (fft.cpp:1678) [24]  (3.63 ns)
+
+ <State 3>: 6.89ns
+The critical path consists of the following:
+	fifo read on port 'strm_in_V_V' (fft.cpp:1679) [25]  (3.63 ns)
+	'store' operation ('store_ln1683', fft.cpp:1683) of variable 'bitcast_ln1681', fft.cpp:1681 on array 'input_imag', fft.cpp:1667 [32]  (3.25 ns)
+
+ <State 4>: 1.77ns
+The critical path consists of the following:
+	multiplexor before 'phi' operation ('j') with incoming values : ('j', fft.cpp:1701) [42]  (1.77 ns)
+
+ <State 5>: 3.25ns
+The critical path consists of the following:
+	'phi' operation ('j') with incoming values : ('j', fft.cpp:1701) [42]  (0 ns)
+	'getelementptr' operation ('freq_V_addr', fft.cpp:1702) [50]  (0 ns)
+	'load' operation ('base_freq.V', fft.cpp:1702) on array 'freq_V' [51]  (3.25 ns)
+
+ <State 6>: 6.55ns
+The critical path consists of the following:
+	'load' operation ('base_freq.V', fft.cpp:1702) on array 'freq_V' [51]  (3.25 ns)
+	'icmp' operation ('icmp_ln1495', fft.cpp:1702) [52]  (2.32 ns)
+	'or' operation ('or_ln1702', fft.cpp:1702) [54]  (0.978 ns)
+
+ <State 7>: 3.25ns
+The critical path consists of the following:
+	'load' operation ('input_real_load_2', fft.cpp:1710) on array 'input_real', fft.cpp:1666 [58]  (3.25 ns)
+
+ <State 8>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_3', fft.cpp:1710) [59]  (5.7 ns)
+
+ <State 9>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_3', fft.cpp:1710) [59]  (5.7 ns)
+
+ <State 10>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_3', fft.cpp:1710) [59]  (5.7 ns)
+
+ <State 11>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_3', fft.cpp:1710) [59]  (5.7 ns)
+
+ <State 12>: 7.26ns
+The critical path consists of the following:
+	'fadd' operation ('max', fft.cpp:1710) [63]  (7.26 ns)
+
+ <State 13>: 7.26ns
+The critical path consists of the following:
+	'fadd' operation ('max', fft.cpp:1710) [63]  (7.26 ns)
+
+ <State 14>: 7.26ns
+The critical path consists of the following:
+	'fadd' operation ('max', fft.cpp:1710) [63]  (7.26 ns)
+
+ <State 15>: 7.26ns
+The critical path consists of the following:
+	'fadd' operation ('max', fft.cpp:1710) [63]  (7.26 ns)
+
+ <State 16>: 7.26ns
+The critical path consists of the following:
+	'fadd' operation ('max', fft.cpp:1710) [63]  (7.26 ns)
+
+ <State 17>: 5.43ns
+The critical path consists of the following:
+	'fcmp' operation ('tmp_5', fft.cpp:1712) [70]  (5.43 ns)
+
+ <State 18>: 6.41ns
+The critical path consists of the following:
+	'fcmp' operation ('tmp_5', fft.cpp:1712) [70]  (5.43 ns)
+	'and' operation ('and_ln1712', fft.cpp:1712) [71]  (0.978 ns)
+
+ <State 19>: 7.11ns
+The critical path consists of the following:
+	'fcmp' operation ('tmp_10', fft.cpp:1719) [92]  (5.43 ns)
+	'and' operation ('and_ln1719_1', fft.cpp:1719) [93]  (0.978 ns)
+	'select' operation ('select_ln1719', fft.cpp:1719) [94]  (0.702 ns)
+
+ <State 20>: 1.77ns
+The critical path consists of the following:
+	'store' operation ('store_ln1719', fft.cpp:1719) of variable 'select_ln1719_1', fft.cpp:1719 on local variable 'max_0' [96]  (1.77 ns)
+
+ <State 21>: 5.07ns
+The critical path consists of the following:
+	'phi' operation ('shift_idex.V') with incoming values : ('p_0205_0_load') ('shift_idex.V', fft.cpp:1733) [115]  (0 ns)
+	'add' operation ('ret.V', fft.cpp:1729) [123]  (1.81 ns)
+	'getelementptr' operation ('input_real_addr_1', fft.cpp:1729) [125]  (0 ns)
+	'load' operation ('input_real_load', fft.cpp:1729) on array 'input_real', fft.cpp:1666 [126]  (3.25 ns)
+
+ <State 22>: 3.25ns
+The critical path consists of the following:
+	'load' operation ('input_real_load', fft.cpp:1729) on array 'input_real', fft.cpp:1666 [126]  (3.25 ns)
+
+ <State 23>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_9', fft.cpp:1729) [127]  (5.7 ns)
+
+ <State 24>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_9', fft.cpp:1729) [127]  (5.7 ns)
+
+ <State 25>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_9', fft.cpp:1729) [127]  (5.7 ns)
+
+ <State 26>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_9', fft.cpp:1729) [127]  (5.7 ns)
+
+ <State 27>: 3.25ns
+The critical path consists of the following:
+	'getelementptr' operation ('input_real_addr_2', fft.cpp:1729) [129]  (0 ns)
+	'store' operation ('store_ln1729', fft.cpp:1729) of variable 'tmp_9', fft.cpp:1729 on array 'input_real', fft.cpp:1666 [130]  (3.25 ns)
+
+ <State 28>: 3.25ns
+The critical path consists of the following:
+	'load' operation ('input_real_load_1', fft.cpp:1731) on array 'input_real', fft.cpp:1666 [136]  (3.25 ns)
+
+ <State 29>: 3.25ns
+The critical path consists of the following:
+	'load' operation ('input_real_load_1', fft.cpp:1731) on array 'input_real', fft.cpp:1666 [136]  (3.25 ns)
+
+ <State 30>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_1', fft.cpp:1731) [137]  (5.7 ns)
+
+ <State 31>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_1', fft.cpp:1731) [137]  (5.7 ns)
+
+ <State 32>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_1', fft.cpp:1731) [137]  (5.7 ns)
+
+ <State 33>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_1', fft.cpp:1731) [137]  (5.7 ns)
+
+ <State 34>: 4.24ns
+The critical path consists of the following:
+	'xor' operation ('xor_ln1731', fft.cpp:1731) [138]  (0.99 ns)
+	'getelementptr' operation ('input_real_addr_3', fft.cpp:1731) [141]  (0 ns)
+	'store' operation ('store_ln1731', fft.cpp:1731) of variable 'tmp_1', fft.cpp:1731 on array 'input_real', fft.cpp:1666 [142]  (3.25 ns)
+
+ <State 35>: 3.25ns
+The critical path consists of the following:
+	'phi' operation ('i') with incoming values : ('i', fft.cpp:1738) [153]  (0 ns)
+	'getelementptr' operation ('input_imag_addr_4', fft.cpp:1739) [160]  (0 ns)
+	'load' operation ('input_imag_load_3', fft.cpp:1739) on array 'input_imag', fft.cpp:1667 [161]  (3.25 ns)
+
+ <State 36>: 7.5ns
+The critical path consists of the following:
+	'load' operation ('input_imag_load_3', fft.cpp:1739) on array 'input_imag', fft.cpp:1667 [161]  (3.25 ns)
+	'xor' operation ('xor_ln1739', fft.cpp:1739) [163]  (0.993 ns)
+	'store' operation ('store_ln1739', fft.cpp:1739) of variable 'bitcast_ln1739_1', fft.cpp:1739 on array 'input_imag', fft.cpp:1667 [165]  (3.25 ns)
+
+ <State 37>: 1.77ns
+The critical path consists of the following:
+	multiplexor before 'phi' operation ('i') with incoming values : ('i', fft.cpp:1743) [171]  (1.77 ns)
+
+ <State 38>: 3.25ns
+The critical path consists of the following:
+	'phi' operation ('i') with incoming values : ('i', fft.cpp:1743) [171]  (0 ns)
+	'getelementptr' operation ('input_imag_addr_9', fft.cpp:1744) [178]  (0 ns)
+	'load' operation ('input_imag_load_4', fft.cpp:1744) on array 'input_imag', fft.cpp:1667 [179]  (3.25 ns)
+
+ <State 39>: 7.5ns
+The critical path consists of the following:
+	'load' operation ('input_imag_load_4', fft.cpp:1744) on array 'input_imag', fft.cpp:1667 [179]  (3.25 ns)
+	'xor' operation ('xor_ln1744', fft.cpp:1744) [181]  (0.993 ns)
+	'store' operation ('store_ln1744', fft.cpp:1744) of variable 'bitcast_ln1744_1', fft.cpp:1744 on array 'input_imag', fft.cpp:1667 [183]  (3.25 ns)
+
+ <State 40>: 3.25ns
+The critical path consists of the following:
+	'phi' operation ('i') with incoming values : ('i', fft.cpp:1746) [188]  (0 ns)
+	'getelementptr' operation ('input_real_addr_7', fft.cpp:1747) [195]  (0 ns)
+	'load' operation ('input_real_load_3', fft.cpp:1747) on array 'input_real', fft.cpp:1666 [196]  (3.25 ns)
+
+ <State 41>: 3.25ns
+The critical path consists of the following:
+	'load' operation ('input_real_load_3', fft.cpp:1747) on array 'input_real', fft.cpp:1666 [196]  (3.25 ns)
+
+ <State 42>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_7', fft.cpp:1747) [197]  (5.7 ns)
+
+ <State 43>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_7', fft.cpp:1747) [197]  (5.7 ns)
+
+ <State 44>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_7', fft.cpp:1747) [197]  (5.7 ns)
+
+ <State 45>: 5.7ns
+The critical path consists of the following:
+	'fmul' operation ('tmp_7', fft.cpp:1747) [197]  (5.7 ns)
+
+ <State 46>: 3.25ns
+The critical path consists of the following:
+	'store' operation ('store_ln1747', fft.cpp:1747) of variable 'tmp_7', fft.cpp:1747 on array 'input_real', fft.cpp:1666 [198]  (3.25 ns)
+
+ <State 47>: 3.25ns
+The critical path consists of the following:
+	'phi' operation ('i') with incoming values : ('i', fft.cpp:1750) [207]  (0 ns)
+	'getelementptr' operation ('input_real_addr_8', fft.cpp:1751) [214]  (0 ns)
+	'load' operation ('out_real', fft.cpp:1751) on array 'input_real', fft.cpp:1666 [215]  (3.25 ns)
+
+ <State 48>: 6.89ns
+The critical path consists of the following:
+	'load' operation ('out_real', fft.cpp:1751) on array 'input_real', fft.cpp:1666 [215]  (3.25 ns)
+	fifo write on port 'strm_out_V_V' (fft.cpp:1758) [219]  (3.63 ns)
+
+ <State 49>: 3.63ns
+The critical path consists of the following:
+	fifo write on port 'strm_out_V_V' (fft.cpp:1759) [221]  (3.63 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+	State 13
+	State 14
+	State 15
+	State 16
+	State 17
+	State 18
+	State 19
+	State 20
+	State 21
+	State 22
+	State 23
+	State 24
+	State 25
+	State 26
+	State 27
+	State 28
+	State 29
+	State 30
+	State 31
+	State 32
+	State 33
+	State 34
+	State 35
+	State 36
+	State 37
+	State 38
+	State 39
+	State 40
+	State 41
+	State 42
+	State 43
+	State 44
+	State 45
+	State 46
+	State 47
+	State 48
+	State 49
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A
