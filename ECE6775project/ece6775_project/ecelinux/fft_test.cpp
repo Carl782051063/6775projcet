@@ -8,9 +8,9 @@
 #include "timer.h"
 
 
-union dut_1 {float fval; int32_t ival;};
-
 int main() {
+
+    
     bit_fixed_16_15 freq[SIZE];
     bit14_t shift_idex=0;
     DTYPE temp=0;
@@ -64,14 +64,9 @@ int main() {
         std::cerr << "Error: The real and imaginary files have different lengths." << std::endl;
         return 0; // Exit with an error code
     }
-    ///-----------------------------------TEST part-----------------------------------//
-    // for(int k = 0; k < SIZE; k++){
-    //     strm_in.write(real_input[i]);
-    //     strm_in.write(imag_input[i]);
-    // }
-    
-    ///-----------------------------------TEST part-----------------------------------//
-
+  // Timer
+    Timer timer("FFT SW");
+    timer.start();
     // // Call fft function
      fft(real_input.data(), imag_input.data());
     std::cout << "FFT function has been called successfully!" << std::endl;
@@ -84,6 +79,7 @@ int main() {
     std::cout << "Start signal processing!" << std::endl;
     // Bandpass filter filter keep freq component(lowbound - highbound)
     for(int j=0;j<SIZE/2;j++){
+        //#pragma HLS pipeline
         if(freq[j]<lowbound||freq[j]>highbound){
             real_input[j]=0;
             real_input[SIZE-j-1]=0;
@@ -109,25 +105,60 @@ int main() {
         }
     }
         std::cout << "shift_idex= " << shift_idex <<std::endl;
-       // Pitchshift modification        Move 120 point around base freq to low freq domian, {80Hz(index 110)-161Hz(index 230)} 
-       for(int z=110; z<230;z++){
-            real_input[z]= real_input[shift_idex-60]*pitchshift_factor;
-            imag_input[z]= imag_input[shift_idex-60]*pitchshift_factor;
-            real_input[SIZE-z-1]=real_input[shift_idex-60]*pitchshift_factor;
-            imag_input[SIZE-z-1]=imag_input[shift_idex-60]*pitchshift_factor;
-            shift_idex++;
+       // Spectral attenuation
+      for(int z=730; z<3330;z++){
+      //#pragma HLS pipeline
+       if(z<1030){
+       real_input[z]= real_input[z]*factor4;
+       imag_input[z]= imag_input[z]*factor4;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor4;
+       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor4;    
         }
+       else if(z<1430){
+       real_input[z]= real_input[z]*factor5;
+       imag_input[z]= imag_input[z]*factor5;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor5;
+       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor5;    
+        }
+       else if(z<1830){
+       real_input[z]= real_input[z]*factor6;
+       imag_input[z]= imag_input[z]*factor6;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor6;
+       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor6;    
+        }
+       else if(z<2330){
+       real_input[z]= real_input[z]*factor7;
+       imag_input[z]= imag_input[z]*factor7;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor7;
+       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor7;    
+        } 
+       else if(z<2730){
+       real_input[z]= real_input[z]*factor8;
+       imag_input[z]= imag_input[z]*factor8;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor8;
+       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor8;    
+        }
+        else{
+       real_input[z]= real_input[z]*factor9;
+       imag_input[z]= imag_input[z]*factor9;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor9;
+       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor9;    
+        }            
+     }
         
      // Inverse fft
        for(int i=0; i < SIZE; i++){
+        //#pragma HLS unroll
          imag_input[i] = (-1)*imag_input[i];
        }
        fft(real_input.data(), imag_input.data());
    
        for(int i=0; i < SIZE; i++){
+        //#pragma HLS unroll
          imag_input[i] = (-1)*imag_input[i];
        }   
        for(int i=0; i < SIZE; i++){
+        //#pragma HLS unroll
          real_input[i] = real_input[i]/SIZE;
          imag_input[i] = imag_input[i]/SIZE;
        }
@@ -154,6 +185,6 @@ int main() {
                   << real_input[i] << ", " << imag_input[i] << ")" << std::endl;
     }
     std::cout << "The Base Freqency of the input signal= " << base_freq <<" Hz"<<std::endl;
- 
+   timer.stop();
     return 0;
 }

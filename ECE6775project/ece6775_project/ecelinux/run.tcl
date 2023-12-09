@@ -49,18 +49,6 @@ set_part {xc7z020clg484-1}
 # Target clock period is 10ns
 create_clock -period 10
 
-
-
-# Do not inline update_knn and knn_vote functions 
-#set_directive_inline -off update_knn
-#et_directive_inline -off knn_vote
-### You can add your own directives here ###
-#pragma HLS unroll
-#set_directive_unroll digitrec/LOOP_dig_1    
-#pragma HLS array_partition variable=knn_set block factor=10
-#set_directive_array_partition digitrec knn_set
-
-
 # Simulate the C++ design
 csim_design
 # Synthesize the design

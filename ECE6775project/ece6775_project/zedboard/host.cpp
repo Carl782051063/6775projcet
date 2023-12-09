@@ -17,7 +17,7 @@
 
 /* Host Code */
 union u_1 { float fval; int32_t ival; };
-
+int nbytes;
 //u.fval = 1.01;
 //int iv = u.ival; // then send "iv" to the FIFO
 
@@ -43,16 +43,6 @@ int main(int argc, char **argv) {
   int32_t inputs_imag[N];   
   float result_real[N];
   float result_imag[N];
-
-  // Timer
-  Timer timer("FFT FPGA");
-
-  int nbytes;
-  int num_test_insts = 16384;
-  int error = 0;
-
-
-  
   //--------------------------------------------------------------------
   // Read real part of data from the input file into two arrays
   //--------------------------------------------------------------------
@@ -63,24 +53,7 @@ int main(int argc, char **argv) {
   if (!myfile_real.is_open()) {
     std::cout << "Unable to open real file for the testing set!" << std::endl;
     return 1;
-  }
-  // // Open a file for writing
-  //   std::ofstream outputFile("./fft_result/output.dat");
-
-  //   if (outputFile.is_open()) {
-  //       // Write the real and imaginary parts to the file
-  //       for (size_t i = 0; i < N; ++i) {
-  //           outputFile <<  std::to_string(result_real[i]) << " " << std::to_string(result_imag[i]) << std::endl;
-  //       }
-
-  //       // Close the file
-  //       outputFile.close();
-  //       std::cout << "Data has been written to output.dat" << std::endl;
-  //   } else {
-  //       std::cerr << "Unable to open the file for writing." << std::endl;
-  //   }
-  // Open a file for writing
-       
+  }     
   for (int i = 0; i < N; ++i) {
     assert(std::getline(myfile_real, line_real));
     // convert to float
@@ -92,11 +65,6 @@ int main(int argc, char **argv) {
     int32_t int_input_real = u1.ival;
     // // Store the digits into arrays
      inputs_real[i] = int_input_real; //32 bits
-
-    // u_1 u5 = {.ival = inputs_real[i]};
-    // float float_input_real= u5.fval;
-    // float_input_real=float_input_real+1;
-    // outputFile <<  std::to_string(float_input_real) << std::endl; 
   }
   //--------------------------------------------------------------------
   // Read imag part of data from the input file into two arrays
@@ -120,17 +88,11 @@ int main(int argc, char **argv) {
     //in_2.fval = input_imag;
     int32_t int_input_imag = u2.ival;
     // Store the digits into arrays
-    inputs_imag[i] = int_input_imag; //32 bits
-
-    //     u_1 u5 = {.ival = inputs_imag[i]};
-    // float float_input_real= u5.fval;
-    // float_input_real=float_input_real+1;
-    // outputFile <<  std::to_string(float_input_real) << std::endl; 
-   
+    inputs_imag[i] = int_input_imag; //32 bits 
   }
-
+  // Timer
+  Timer timer("FFT FPGA");
   timer.start();
-
   //--------------------------------------------------------------------
   // Add your code here to communicate with the hardware module
   //--------------------------------------------------------------------
@@ -160,28 +122,17 @@ int main(int argc, char **argv) {
     nbytes = read (fdr, (void*)&imag_out, sizeof(imag_out));
     assert (nbytes == sizeof(imag_out));
   
-    
+  
     // Convert int to float
     u_1 u3 = {.ival = real_out};
     u_1 u4 = {.ival = imag_out};
     float out_real_out = u3.fval;
     float out_imag_out = u4.fval;
 
-
-    // out_1.ival = real_out;
-    // float out_real_out = out_1.fval;
-    // out_2.ival = imag_out;
-    // float out_imag_out = out_2.fval;
-      
     result_real[i] = out_real_out;
-    result_imag[i] = out_imag_out;
-    //calculated the error rate
-    if((result_real[i] - inputs_real[i])>0.01||(result_imag[i] - inputs_imag[i]) > 0.01){
-      error++;
-    }
-
-    
+    result_imag[i] = out_imag_out;    
   }
+  timer.stop();
    // Open a file for writing
     std::ofstream outputFile("./fft_result/output.dat");
 
@@ -199,14 +150,7 @@ int main(int argc, char **argv) {
     }
             // Close the file
         outputFile.close();
-  timer.stop();
 
-
-
-  // Report overall error out of all testing instances
-  std::cout << "Number of test instances = " << num_test_insts << std::endl;
-  std::cout << "Overall Error Rate = " << std::setprecision(3)
-            << ((double)error / num_test_insts) * 100 << "%" << std::endl;
 
   // Close input file for the testing set
   myfile_real.close();

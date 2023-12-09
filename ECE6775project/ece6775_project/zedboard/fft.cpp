@@ -10,7 +10,6 @@
 #include <fstream>
 #include <cstdint>
 #include <cmath>  // Include the cmath header for cos and sin functions
-// #include "fft_tables.cpp"  // Include the new file
 #include "typedefs.h"
 
 double cosa_lookup_table[SIZE2]={1.000000,1.000000,1.000000,0.999999,0.999999,0.999998,0.999997,0.999996,0.999995,0.999994,
@@ -1660,16 +1659,11 @@ union dut_1{ float dut_fval; int32_t dut_ival; } ;
 
 
 void dut(hls::stream<bit32_t> &strm_in, hls::stream<bit32_t> &strm_out) {
-  // -----------------------------
-  // YOUR CODE GOES HERE
-  // -----------------------------
+
   float input_real[SIZE];
   float input_imag[SIZE];
   int32_t output_real[SIZE];
   int32_t output_imag[SIZE];
-
-
-
   // ------------------------------------------------------
   // Input processing
   // ------------------------------------------------------
@@ -1682,9 +1676,7 @@ void dut(hls::stream<bit32_t> &strm_in, hls::stream<bit32_t> &strm_out) {
     input_real[i] = u1.dut_fval;
     input_imag[i] = u2.dut_fval;
   }
-
     fft(input_real, input_imag);
-
     bit_fixed_16_15 freq[SIZE];
     bit14_t shift_idex=0;
     DTYPE temp=0;
@@ -1699,6 +1691,7 @@ void dut(hls::stream<bit32_t> &strm_in, hls::stream<bit32_t> &strm_out) {
     std::cout << "Start signal processing!" << std::endl;
     // Bandpass filter filter keep freq component(lowbound - highbound)
     for(int j=0;j<SIZE/2;j++){
+       // #pragma HLS pipeline
         if(freq[j]<lowbound||freq[j]>highbound){
             input_real[j]=0;
             input_real[SIZE-j-1]=0;
@@ -1724,23 +1717,55 @@ void dut(hls::stream<bit32_t> &strm_in, hls::stream<bit32_t> &strm_out) {
         }
     }
         std::cout << "shift_idex= " << shift_idex <<std::endl;
-       // Pitchshift modification        Move 120 point around base freq to low freq domian, {80Hz(index 110)-161Hz(index 230)} 
-       for(int z=110; z<230;z++){
-            input_real[z]= input_real[shift_idex-60]*pitchshift_factor;
-            input_imag[z]= input_imag[shift_idex-60]*pitchshift_factor;
-            input_real[SIZE-z-1]=input_real[shift_idex-60]*pitchshift_factor;
-            input_imag[SIZE-z-1]=input_imag[shift_idex-60]*pitchshift_factor;
-            shift_idex++;
+       // Spectral attenuation 
+  for(int z=730; z<3330;z++){
+       //#pragma HLS pipeline
+       if(z<1030){
+       input_real[z]= input_real[z]*factor4;
+       input_imag[z]= input_imag[z]*factor4;
+       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor4;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor4;    
         }
-
-
+       else if(z<1430){
+       input_real[z]= input_real[z]*factor5;
+       input_imag[z]= input_imag[z]*factor5;
+       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor5;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor5;    
+        }
+       else if(z<1830){
+       input_real[z]= input_real[z]*factor6;
+       input_imag[z]= input_imag[z]*factor6;
+       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor6;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor6;    
+        }
+       else if(z<2330){
+       input_real[z]= input_real[z]*factor7;
+       input_imag[z]= input_imag[z]*factor7;
+       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor7;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor7;    
+        } 
+       else if(z<2730){
+       input_real[z]= input_real[z]*factor8;
+       input_imag[z]= input_imag[z]*factor8;
+       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor8;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor8;    
+        }
+        else{
+       input_real[z]= input_real[z]*factor9;
+       input_imag[z]= input_imag[z]*factor9;
+       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor9;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor9;    
+        }            
+     }
      // Inverse fft
        for(int i=0; i < SIZE; i++){
+            //  #pragma HLS unroll
          input_imag[i] = (-1)*input_imag[i];
        }
        fft(input_real, input_imag);
    
        for(int i=0; i < SIZE; i++){
+              //#pragma HLS unroll        
          input_imag[i] = (-1)*input_imag[i];
        }   
        for(int i=0; i < SIZE; i++){
@@ -1762,9 +1787,6 @@ void dut(hls::stream<bit32_t> &strm_in, hls::stream<bit32_t> &strm_out) {
   // ------------------------------------------------------
   // Output processing
   // ------------------------------------------------------
-
-
-
 }
 ///////////////////////////////////////////////////////
 
@@ -1784,34 +1806,21 @@ void fft(DTYPE X_R[SIZE], DTYPE X_I[SIZE]) {
 
   stage_loop:
     for (stage = 1; stage <= M; stage++) { // Do M stages of butterflies
-   // #pragma HLS unroll
         DFTpts = 1 << stage;                                 // DFT = 2^stage = points in sub DFT
         numBF = DFTpts / 2;                                     // Butterfly WIDTHS in sub-DFT
         k = 0;
         e = -6.283185307178 / DFTpts;
         a = 0.0;
     // Perform butterflies for j-th stage
-    //initialize_lookup_tables();
     butterfly_loop:
         for (j = 0; j < numBF; j++) {
             c = cosa_lookup_table[k];
             s = sina_lookup_table[k];
-            // k += step;
-            // c = cos(a);
-            // s = sin(a);
             a = a + e;
         // Compute butterflies that use same W**k
-
-        // j 0 -8192   DFTpts 2-16384 
-        //i=0 DFT=2 #8192
-        //i=0 DFT=4 numBF=2 # 4096
-        //i=0 DFT=8 numBF=4 # 2048
-
-
-        //i=0 DFT=16384 numBF 8192# 1
         dft_loop:
             for (i = j; i < SIZE; i += DFTpts) {
-                #pragma HLS loop_tripcount max = 1171
+                // #pragma HLS loop_tripcount max = 1171
                 i_lower = i + numBF; // index of lower point in butterfly
                 temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
                 temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
@@ -1842,6 +1851,7 @@ void bit_reverse(DTYPE X_R[SIZE], DTYPE X_I[SIZE]) {
     DTYPE temp;
 
     for (i = 0; i < SIZE; i++) {
+      //#pragma HLS pipeline
         reversed = reverse_bits(i); // Find the bit reversed index
         if (i < reversed) {
             // Swap the real values
