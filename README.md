@@ -2,7 +2,8 @@
 ## FPGA-Based FFT Accelerator for Voice Optimizer
 
 ### Team Members
-- Jiacheng Tu- Ruyi Zhou- Klora Wang- Bolong Tan
+- Jiacheng Tu - Bolong Tan
+- Ruyi Zhou   - Klora Wang
 
 ### Project Structure
 This project is divided into three main parts:
