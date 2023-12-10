@@ -50,8 +50,8 @@ This project is divided into three main parts:
 - run.tcl
 - timer.h
 - typedefs.h
-- (2) Convert `output.dat` back to real audio file (.wav) (`split_to_twofile.py` and `array_to_wav.py`)
-3. **Zedboard**: Code files for running on ARM and FPGA based on a Zybd7000 platform.
+
+2. **Zedboard**: Code files for running on ARM and FPGA based on a Zybd7000 platform.
 - fft_test.cpp (software testbench)
 - fft.cpp (fft subfunctions)
 - host.cpp (communication file for sending and receiving data between fpga and arm)
@@ -61,7 +61,8 @@ This project is divided into three main parts:
 - PCMdata_real.txt (input data real part)
 - timer.h
 - typedefs.h
-4. **PythonScript**: Code files for converting real audio files (.wav) to our input data format and converting the `output.dat` back to real audio files (.wav).
+- 
+3. **PythonScript**: Code files for converting real audio files (.wav) to our input data format and converting the `output.dat` back to real audio files (.wav).
 - (1) Convert real audio file (.wav) to input data array format (`resample_to_decrease_size.py` and `wav_to_array.py`)
 - (2) Convert `output.dat` back to real audio file (.wav) (`split_to_twofile.py` and `array_to_wav.py`)
 
