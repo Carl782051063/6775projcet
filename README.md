@@ -10,6 +10,9 @@ The project structure contains three parts:
 2.Zedboard (code files for running on ARM and FPGA based on a zybd7000)
 
 3.pythonscript (code files for convert real aduio file(.wav) to our input data format and convert the output.dat back to real audio file (.wav))
+(1) Convert real audio file(.wav) to input data array format (resample_to_decrease_size.py and wav_to_array.py)
+(2) Covert output.dat back to real audio file(.wav) (split_to_twofile.py and array_to_wav.py)
+
 
 If you want to replace the input auido data or want to convert the output.dat back to real aduio file(.wav), please use the code files in pythonscript.
 
