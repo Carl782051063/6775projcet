@@ -39,7 +39,7 @@ After running the project, it will output a file named "output.dat" where the fi
 ### Project Structure
 This project is divided into three main parts:
 
-1. **ECElinux**: Code files for running software testbench on ECElinux.
+#### **ECElinux**: Code files for running software testbench on ECElinux.
 - fft_test.cpp (software testbench)
 - fft.cpp (fft subfunctions)
 - fft.h
@@ -51,7 +51,7 @@ This project is divided into three main parts:
 - timer.h
 - typedefs.h
 
-2. **Zedboard**: Code files for running on ARM and FPGA based on a Zybd7000 platform.
+#### **Zedboard**: Code files for running on ARM and FPGA based on a Zybd7000 platform.
 - fft_test.cpp (software testbench)
 - fft.cpp (fft subfunctions)
 - host.cpp (communication file for sending and receiving data between fpga and arm)
@@ -61,8 +61,8 @@ This project is divided into three main parts:
 - PCMdata_real.txt (input data real part)
 - timer.h
 - typedefs.h
-- 
-3. **PythonScript**: Code files for converting real audio files (.wav) to our input data format and converting the `output.dat` back to real audio files (.wav).
+  
+#### **PythonScript**: Code files for converting real audio files (.wav) to our input data format and converting the `output.dat` back to real audio files (.wav).
 - (1) Convert real audio file (.wav) to input data array format (`resample_to_decrease_size.py` and `wav_to_array.py`)
 - (2) Convert `output.dat` back to real audio file (.wav) (`split_to_twofile.py` and `array_to_wav.py`)
 
