@@ -46,7 +46,7 @@ This project is divided into three main parts:
 2. **Zedboard**: Code files for running on ARM and FPGA based on a Zybd7000 platform.
 3. **PythonScript**: Code files for converting real audio files (.wav) to our input data format and converting the `output.dat` back to real audio files (.wav).
 
-#### Details:
+# PythonScript Details:
 - (1) Convert real audio file (.wav) to input data array format (`resample_to_decrease_size.py` and `wav_to_array.py`)
 - (2) Convert `output.dat` back to real audio file (.wav) (`split_to_twofile.py` and `array_to_wav.py`)
 
