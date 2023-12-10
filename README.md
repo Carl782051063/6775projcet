@@ -23,6 +23,7 @@ For the software testbench on ARM, run "make sw" in the directory /zedboard to g
 To run on FPGA, first run "make xillydemo.bit" in the directory /ecelinux to generate the bitstream.
 After loading the file and mounting the bitstream on FPGA,run "make fpga" in the directory /zedboard to generate the output.dat.
 
+
 There are two prepared input file converted from real audio(.wav), "PCMdata_real.txt" and "PCMdata_imag.txt" contains the real part data and imaginary part data separately.
 After running the project, it will output a file named "output.dat" where the first colume represent the processed real part data and second colume represents the processed imag part data.
 
