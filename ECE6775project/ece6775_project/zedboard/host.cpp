@@ -54,9 +54,10 @@ int main(int argc, char **argv) {
     std::cout << "Unable to open real file for the testing set!" << std::endl;
     return 1;
   }     
+  
   for (int i = 0; i < N; ++i) {
     assert(std::getline(myfile_real, line_real));
-    // convert to float
+    // convert float to int
     float input_real = std::stof(line_real);
     
     u_1 u1 = {.fval = input_real};

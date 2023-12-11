@@ -15,18 +15,6 @@
 set filename "output.csv"
 file delete -force "./fft_result/${filename}"
 
-#------------------------------------------------------
-# You can specify a set of parameter K to explore.
-#------------------------------------------------------
-#set value_k { 3 }
-#------------------------------------------------------
-# run batch experiments
-#------------------------------------------------------
-#foreach { K } $value_k {
-
-# Define the bitwidth macros from CFLAGs
-#set CFLAGS "-DK_CONST=${K}"
-
 # Project name
 set hls_prj fft_test.prj
 
@@ -55,12 +43,4 @@ csim_design
 csynth_design
 # Co-simulate the design
 #cosim_design
-
-#---------------------------------------------
-# Collect & dump out results from HLS reports
-#---------------------------------------------
-#set argv [list $filename $hls_prj]
-#set argc 2
-#source "./script/collect_result.tcl"
-#}
 exit

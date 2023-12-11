@@ -23,7 +23,6 @@ typedef ap_uint<32> bit32_t;
 typedef ap_uint<64> bit64_t;
 typedef ap_uint<49> digit;
 typedef ap_fixed<TOT_WIDTH, INT_WIDTH> bit_fixed_16_15;
-typedef ap_fixed<37,31> bit_fixed;
 
 
 

@@ -7,16 +7,16 @@
 source /opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/scripts/vivado_hls/hls.tcl -notrace
 INFO: Applying HLS Y2K22 patch v1.2 for IP revision
 INFO: [HLS 200-10] Running '/opt/xilinx/Xilinx_Vivado_vitis_2019.2/Vivado/2019.2/bin/unwrapped/lnx64.o/vivado_hls'
-INFO: [HLS 200-10] For user 'jt842' on host 'en-ec-ecelinux-14.coecis.cornell.edu' (Linux_x86_64 version 3.10.0-1160.92.1.el7.x86_64) on Fri Dec 08 22:52:08 EST 2023
+INFO: [HLS 200-10] For user 'jt842' on host 'en-ec-ecelinux-04.coecis.cornell.edu' (Linux_x86_64 version 3.10.0-1160.92.1.el7.x86_64) on Mon Dec 11 16:05:37 EST 2023
 INFO: [HLS 200-10] On os "CentOS Linux release 7.9.2009 (Core)"
-INFO: [HLS 200-10] In directory '/home/jt842/fpga_f/fft_project_6775/ecelinux'
+INFO: [HLS 200-10] In directory '/home/jt842/fftfinal/6775project/ecelinux'
 Sourcing Tcl script 'run.tcl'
-INFO: [HLS 200-10] Creating and opening project '/home/jt842/fpga_f/fft_project_6775/ecelinux/fft_test.prj'.
+INFO: [HLS 200-10] Opening and resetting project '/home/jt842/fftfinal/6775project/ecelinux/fft_test.prj'.
 INFO: [HLS 200-10] Adding design file 'fft.cpp' to the project
 INFO: [HLS 200-10] Adding test bench file 'fft_test.cpp' to the project
 INFO: [HLS 200-10] Adding test bench file 'PCMdata_imag.txt' to the project
 INFO: [HLS 200-10] Adding test bench file 'PCMdata_real.txt' to the project
-INFO: [HLS 200-10] Creating and opening solution '/home/jt842/fpga_f/fft_project_6775/ecelinux/fft_test.prj/solution1'.
+INFO: [HLS 200-10] Opening and resetting solution '/home/jt842/fftfinal/6775project/ecelinux/fft_test.prj/solution1'.
 INFO: [HLS 200-10] Cleaning up the solution database.
 INFO: [HLS 200-10] Setting target device to 'xc7z020-clg484-1'
 INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
@@ -32799,67 +32799,123 @@ Index 16381: (-36.5376, 3.14503)
 Index 16382: (-75.7362, 2.69657)
 Index 16383: (-122.666, 1.85988)
 The Base Freqency of the input signal= 908 Hz
-FFT SW              :      1 calls; 979.998 msecs total time
+FFT SW              :      1 calls; 461.865 msecs total time
 INFO: [SIM 211-1] CSim done with 0 errors.
 INFO: [SIM 211-3] *************** CSIM finish ***************
 INFO: [SCHED 204-61] Option 'relax_ii_for_timing' is enabled, will increase II to preserve clock frequency constraints.
 INFO: [HLS 200-10] Analyzing design file 'fft.cpp' ... 
-INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:25 ; elapsed = 00:00:32 . Memory (MB): peak = 1169.711 ; gain = 527.219 ; free physical = 1029 ; free virtual = 22922
-INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:25 ; elapsed = 00:00:32 . Memory (MB): peak = 1169.711 ; gain = 527.219 ; free physical = 1030 ; free virtual = 22922
+INFO: [HLS 200-111] Finished Linking Time (s): cpu = 00:00:28 ; elapsed = 00:00:34 . Memory (MB): peak = 1169.711 ; gain = 527.219 ; free physical = 18925 ; free virtual = 30014
+INFO: [HLS 200-111] Finished Checking Pragmas Time (s): cpu = 00:00:28 ; elapsed = 00:00:34 . Memory (MB): peak = 1169.711 ; gain = 527.219 ; free physical = 18926 ; free virtual = 30014
 INFO: [HLS 200-10] Starting code transformations ...
-INFO: [HLS 200-111] Finished Standard Transforms Time (s): cpu = 00:00:31 ; elapsed = 00:00:38 . Memory (MB): peak = 1169.711 ; gain = 527.219 ; free physical = 996 ; free virtual = 22890
+INFO: [HLS 200-111] Finished Standard Transforms Time (s): cpu = 00:00:50 ; elapsed = 00:00:57 . Memory (MB): peak = 1169.711 ; gain = 527.219 ; free physical = 18895 ; free virtual = 29986
 INFO: [HLS 200-10] Checking synthesizability ...
-INFO: [XFORM 203-602] Inlining function 'reverse_bits' into 'bit_reverse' (fft.cpp:1855) automatically.
-INFO: [HLS 200-111] Finished Checking Synthesizability Time (s): cpu = 00:01:04 ; elapsed = 00:01:13 . Memory (MB): peak = 3217.711 ; gain = 2575.219 ; free physical = 324 ; free virtual = 20947
-INFO: [XFORM 203-602] Inlining function 'reverse_bits' into 'bit_reverse' (fft.cpp:1855) automatically.
-INFO: [HLS 200-111] Finished Pre-synthesis Time (s): cpu = 00:01:38 ; elapsed = 00:01:46 . Memory (MB): peak = 3217.711 ; gain = 2575.219 ; free physical = 365 ; free virtual = 20954
-INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1827:17)
-INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1828:17)
-INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1829:17)
-INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1830:17)
+INFO: [XFORM 203-602] Inlining function 'reverse_bits' into 'bit_reverse' (fft.cpp:2307) automatically.
+INFO: [HLS 200-111] Finished Checking Synthesizability Time (s): cpu = 00:01:44 ; elapsed = 00:01:52 . Memory (MB): peak = 3217.711 ; gain = 2575.219 ; free physical = 16814 ; free virtual = 27907
+INFO: [XFORM 203-502] Unrolling small iteration loop 'butterfly_loop1' (fft.cpp:1816) in function 'fft' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'dft_loop14' (fft.cpp:2267) in function 'fft' automatically.
+INFO: [HLS 200-489] Unrolling loop 'butterfly_loop1' (fft.cpp:1816) in function 'fft' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'dft_loop14' (fft.cpp:2267) in function 'fft' completely with a factor of 1.
+INFO: [XFORM 203-602] Inlining function 'reverse_bits' into 'bit_reverse' (fft.cpp:2307) automatically.
+INFO: [HLS 200-111] Finished Pre-synthesis Time (s): cpu = 00:02:36 ; elapsed = 00:02:45 . Memory (MB): peak = 3217.715 ; gain = 2575.223 ; free physical = 16820 ; free virtual = 27914
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1830:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1831:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1832:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1833:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1864:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1865:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1866:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1867:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1898:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1899:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1900:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1901:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1932:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1933:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1934:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1935:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1966:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1967:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1968:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1969:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2000:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2001:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2002:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2003:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2034:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2035:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2036:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2037:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2068:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2069:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2070:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2071:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2102:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2103:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2104:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2105:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2137:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2138:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2139:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2140:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2171:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2172:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2173:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2174:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2205:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2206:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2207:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2208:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2240:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2241:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2242:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2243:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2276:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2277:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2278:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2279:25)
 INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1676:5)
 INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1677:5)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1695:13)
 INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1696:13)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1697:13)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1697:13)
 INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1698:13)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1699:13)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1705:13)
 INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1706:13)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1707:13)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1707:13)
 INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1708:13)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1709:13)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1724:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1725:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1726:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1727:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1730:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1731:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1732:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1733:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1736:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1737:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1738:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1739:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1742:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1743:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1744:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1745:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1748:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1749:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1750:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1751:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1754:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1755:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1756:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1757:8)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1763:10)
-INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1769:10)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1723:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1724:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1725:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1726:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1729:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1730:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1731:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1732:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1735:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1736:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1737:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1738:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1741:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1742:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1743:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1744:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1747:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1748:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1749:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1750:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1753:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1754:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1755:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1756:8)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1762:10)
+INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1768:10)
 INFO: [HLS 200-472] Inferring partial write operation for 'input_real' (fft.cpp:1772:10)
 INFO: [HLS 200-472] Inferring partial write operation for 'input_imag' (fft.cpp:1773:10)
-INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1859:13)
-INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:1860:13)
-INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1864:13)
-INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:1865:13)
-INFO: [HLS 200-111] Finished Architecture Synthesis Time (s): cpu = 00:01:38 ; elapsed = 00:01:47 . Memory (MB): peak = 3217.711 ; gain = 2575.219 ; free physical = 357 ; free virtual = 20947
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2311:13)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_R' (fft.cpp:2312:13)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2316:13)
+INFO: [HLS 200-472] Inferring partial write operation for 'X_I' (fft.cpp:2317:13)
+INFO: [HLS 200-111] Finished Architecture Synthesis Time (s): cpu = 00:02:37 ; elapsed = 00:02:46 . Memory (MB): peak = 3217.715 ; gain = 2575.223 ; free physical = 16819 ; free virtual = 27915
 INFO: [HLS 200-10] Starting hardware synthesis ...
 INFO: [HLS 200-10] Synthesizing 'dut' ...
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -32867,81 +32923,84 @@ INFO: [HLS 200-42] -- Implementing module 'bit_reverse'
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111]  Elapsed time: 107.27 seconds; current allocated memory: 193.266 MB.
+INFO: [HLS 200-111]  Elapsed time: 166.33 seconds; current allocated memory: 198.326 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111]  Elapsed time: 0.31 seconds; current allocated memory: 193.450 MB.
+INFO: [HLS 200-111]  Elapsed time: 0.2 seconds; current allocated memory: 198.509 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'fft' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111]  Elapsed time: 0.37 seconds; current allocated memory: 193.797 MB.
+INFO: [HLS 200-111]  Elapsed time: 2.31 seconds; current allocated memory: 201.357 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111]  Elapsed time: 0.49 seconds; current allocated memory: 194.257 MB.
+INFO: [HLS 200-111]  Elapsed time: 4.25 seconds; current allocated memory: 204.863 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'dut' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111]  Elapsed time: 1.52 seconds; current allocated memory: 195.601 MB.
+INFO: [HLS 200-111]  Elapsed time: 5.37 seconds; current allocated memory: 206.461 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111]  Elapsed time: 1.81 seconds; current allocated memory: 196.908 MB.
+INFO: [HLS 200-111]  Elapsed time: 1.93 seconds; current allocated memory: 207.831 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'bit_reverse' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [RTGEN 206-100] Finished creating RTL model for 'bit_reverse'.
-INFO: [HLS 200-111]  Elapsed time: 1.81 seconds; current allocated memory: 197.373 MB.
+INFO: [HLS 200-111]  Elapsed time: 2.18 seconds; current allocated memory: 208.327 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'fft' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SYN 201-210] Renamed object name 'fft_cosa_lookup_table' to 'fft_cosa_lookup_tbkb' due to the length limit 20
 INFO: [SYN 201-210] Renamed object name 'fft_sina_lookup_table' to 'fft_sina_lookup_tcud' due to the length limit 20
-INFO: [SYN 201-210] Renamed object name 'dut_faddfsub_32ns_32ns_32_5_full_dsp_1' to 'dut_faddfsub_32nsdEe' due to the length limit 20
-INFO: [SYN 201-210] Renamed object name 'dut_fmul_32ns_32ns_32_4_max_dsp_1' to 'dut_fmul_32ns_32neOg' due to the length limit 20
-INFO: [SYN 201-210] Renamed object name 'dut_fptrunc_64ns_32_2_1' to 'dut_fptrunc_64ns_fYi' due to the length limit 20
-INFO: [RTGEN 206-100] Generating core module 'dut_faddfsub_32nsdEe': 2 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'dut_fmul_32ns_32neOg': 4 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'dut_fptrunc_64ns_fYi': 2 instance(s).
+INFO: [SYN 201-210] Renamed object name 'dut_fsub_32ns_32ns_32_5_full_dsp_1' to 'dut_fsub_32ns_32ndEe' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'dut_faddfsub_32ns_32ns_32_5_full_dsp_1' to 'dut_faddfsub_32nseOg' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'dut_fadd_32ns_32ns_32_5_full_dsp_1' to 'dut_fadd_32ns_32nfYi' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'dut_fmul_32ns_32ns_32_4_max_dsp_1' to 'dut_fmul_32ns_32ng8j' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'dut_fptrunc_64ns_32_2_1' to 'dut_fptrunc_64ns_hbi' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'dut_fadd_32ns_32nfYi': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dut_faddfsub_32nseOg': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dut_fmul_32ns_32ng8j': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dut_fptrunc_64ns_hbi': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dut_fsub_32ns_32ndEe': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'fft'.
-INFO: [HLS 200-111]  Elapsed time: 0.36 seconds; current allocated memory: 198.906 MB.
+INFO: [HLS 200-111]  Elapsed time: 0.64 seconds; current allocated memory: 213.692 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'dut' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [RTGEN 206-500] Setting interface mode on port 'dut/strm_in_V_V' to 'ap_fifo'.
 INFO: [RTGEN 206-500] Setting interface mode on port 'dut/strm_out_V_V' to 'ap_fifo'.
 INFO: [RTGEN 206-500] Setting interface mode on function 'dut' to 'ap_ctrl_hs'.
-INFO: [SYN 201-210] Renamed object name 'dut_fadd_32ns_32ns_32_5_full_dsp_1' to 'dut_fadd_32ns_32ng8j' due to the length limit 20
-INFO: [SYN 201-210] Renamed object name 'dut_fpext_32ns_64_2_1' to 'dut_fpext_32ns_64hbi' due to the length limit 20
-INFO: [SYN 201-210] Renamed object name 'dut_fcmp_32ns_32ns_1_2_1' to 'dut_fcmp_32ns_32nibs' due to the length limit 20
-INFO: [SYN 201-210] Renamed object name 'dut_dmul_64ns_64ns_64_6_max_dsp_1' to 'dut_dmul_64ns_64njbC' due to the length limit 20
-INFO: [RTGEN 206-100] Generating core module 'dut_dmul_64ns_64njbC': 4 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'dut_fadd_32ns_32ng8j': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'dut_fcmp_32ns_32nibs': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'dut_fmul_32ns_32neOg': 4 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'dut_fpext_32ns_64hbi': 4 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'dut_fptrunc_64ns_fYi': 4 instance(s).
+INFO: [SYN 201-210] Renamed object name 'dut_fpext_32ns_64_2_1' to 'dut_fpext_32ns_64ibs' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'dut_fcmp_32ns_32ns_1_2_1' to 'dut_fcmp_32ns_32njbC' due to the length limit 20
+INFO: [SYN 201-210] Renamed object name 'dut_dmul_64ns_64ns_64_6_max_dsp_1' to 'dut_dmul_64ns_64nkbM' due to the length limit 20
+INFO: [RTGEN 206-100] Generating core module 'dut_dmul_64ns_64nkbM': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dut_fadd_32ns_32nfYi': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dut_fcmp_32ns_32njbC': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dut_fmul_32ns_32ng8j': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dut_fpext_32ns_64ibs': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dut_fptrunc_64ns_hbi': 4 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'dut'.
-INFO: [HLS 200-111]  Elapsed time: 0.96 seconds; current allocated memory: 202.488 MB.
+INFO: [HLS 200-111]  Elapsed time: 5.53 seconds; current allocated memory: 226.470 MB.
 INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were satisfied.
-INFO: [HLS 200-789] **** Estimated Fmax: 111.42 MHz
+INFO: [HLS 200-789] **** Estimated Fmax: 105.70 MHz
 INFO: [RTMG 210-279] Implementing memory 'fft_cosa_lookup_tbkb_rom' using auto ROMs.
 INFO: [RTMG 210-279] Implementing memory 'fft_sina_lookup_tcud_rom' using auto ROMs.
 INFO: [RTMG 210-279] Implementing memory 'dut_freq_V_rom' using auto ROMs.
 INFO: [RTMG 210-278] Implementing memory 'dut_input_real_ram (RAM)' using block RAMs.
-INFO: [HLS 200-111] Finished generating all RTL models Time (s): cpu = 00:01:49 ; elapsed = 00:02:05 . Memory (MB): peak = 3217.711 ; gain = 2575.219 ; free physical = 347 ; free virtual = 20953
+INFO: [HLS 200-111] Finished generating all RTL models Time (s): cpu = 00:03:01 ; elapsed = 00:03:20 . Memory (MB): peak = 3217.715 ; gain = 2575.223 ; free physical = 16797 ; free virtual = 27918
 INFO: [VHDL 208-304] Generating VHDL RTL for dut.
 INFO: [VLOG 209-307] Generating Verilog RTL for dut.
-INFO: [HLS 200-112] Total elapsed time: 125.35 seconds; peak allocated memory: 202.488 MB.
-INFO: [Common 17-206] Exiting vivado_hls at Fri Dec  8 22:54:12 2023...
+INFO: [HLS 200-112] Total elapsed time: 200.3 seconds; peak allocated memory: 226.470 MB.
+INFO: [Common 17-206] Exiting vivado_hls at Mon Dec 11 16:08:57 2023...

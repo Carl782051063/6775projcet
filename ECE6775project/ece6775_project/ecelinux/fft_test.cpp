@@ -17,7 +17,7 @@ int main() {
     DTYPE max=0;
     bit_fixed_16_15 base_freq=0;
     std::vector<DTYPE> real_input;
-    std::vector<DTYPE> imag_input;
+    std::vector<DTYPE> input_imag;
     std::string line;
     // Open the real part text file for reading
     std::ifstream realFile("PCMdata_real.txt");
@@ -54,13 +54,13 @@ int main() {
         std::istringstream iss(line);
         DTYPE value;
         if (iss >> value) {
-            imag_input.push_back(value);
+            input_imag.push_back(value);
         }
     }
     imagFile.close();
 
     // Ensure both inputs are the same size
-    if (real_input.size() != imag_input.size()) {
+    if (real_input.size() != input_imag.size()) {
         std::cerr << "Error: The real and imaginary files have different lengths." << std::endl;
         return 0; // Exit with an error code
     }
@@ -68,33 +68,32 @@ int main() {
     Timer timer("FFT SW");
     timer.start();
     // // Call fft function
-     fft(real_input.data(), imag_input.data());
+     fft(real_input.data(), input_imag.data());
     std::cout << "FFT function has been called successfully!" << std::endl;
     for (size_t i = 0; i < real_input.size(); i++) {
         std::cout << "Index " << i << " ,freq:"<< freq[i] <<": ("
-                  << real_input[i] << ", " << imag_input[i] << ")" << std::endl;
+                  << real_input[i] << ", " << input_imag[i] << ")" << std::endl;
     }
     
     //Start Signal Processing
     std::cout << "Start signal processing!" << std::endl;
     // Bandpass filter filter keep freq component(lowbound - highbound)
     for(int j=0;j<SIZE/2;j++){
-        //#pragma HLS pipeline
         if(freq[j]<lowbound||freq[j]>highbound){
             real_input[j]=0;
             real_input[SIZE-j-1]=0;
-            imag_input[j]=0;
-            imag_input[SIZE-j-1]=0;
+            input_imag[j]=0;
+            input_imag[SIZE-j-1]=0;
         }
         else {
           // Calcualate Amplitude spectrum
-          temp=(real_input[j]*real_input[j]+imag_input[j]*imag_input[j]);
+          temp=(real_input[j]*real_input[j]+input_imag[j]*input_imag[j]);
               // Threshold filtering (amplitude lower than threshold)
             if(temp<threshold){
             real_input[j]=0;
             real_input[SIZE-j-1]=0;
-            imag_input[j]=0;
-            imag_input[SIZE-j-1]=0;   
+            input_imag[j]=0;
+            input_imag[SIZE-j-1]=0;   
             }
             //Find the base frequency component
             if(temp>max){
@@ -106,61 +105,58 @@ int main() {
     }
         std::cout << "shift_idex= " << shift_idex <<std::endl;
        // Spectral attenuation
-      for(int z=730; z<3330;z++){
-      //#pragma HLS pipeline
+for(int z=730; z<3330;z++){
+       //#pragma HLS pipeline
        if(z<1030){
-       real_input[z]= real_input[z]*factor4;
-       imag_input[z]= imag_input[z]*factor4;
-       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor4;
-       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor4;    
+       real_input[z]= real_input[z]*factor1;
+       input_imag[z]= input_imag[z]*factor1;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor1;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor1;    
         }
        else if(z<1430){
-       real_input[z]= real_input[z]*factor5;
-       imag_input[z]= imag_input[z]*factor5;
-       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor5;
-       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor5;    
+       real_input[z]= real_input[z]*factor2;
+       input_imag[z]= input_imag[z]*factor2;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor2;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor2;    
         }
        else if(z<1830){
-       real_input[z]= real_input[z]*factor6;
-       imag_input[z]= imag_input[z]*factor6;
-       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor6;
-       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor6;    
+       real_input[z]= real_input[z]*factor3;
+       input_imag[z]= input_imag[z]*factor3;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor3;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor3;    
         }
        else if(z<2330){
-       real_input[z]= real_input[z]*factor7;
-       imag_input[z]= imag_input[z]*factor7;
-       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor7;
-       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor7;    
+       real_input[z]= real_input[z]*factor4;
+       input_imag[z]= input_imag[z]*factor4;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor4;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor4;    
         } 
        else if(z<2730){
-       real_input[z]= real_input[z]*factor8;
-       imag_input[z]= imag_input[z]*factor8;
-       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor8;
-       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor8;    
+       real_input[z]= real_input[z]*factor5;
+       input_imag[z]= input_imag[z]*factor5;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor5;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor5;    
         }
         else{
-       real_input[z]= real_input[z]*factor9;
-       imag_input[z]= imag_input[z]*factor9;
-       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor9;
-       imag_input[SIZE-z-1]=imag_input[SIZE-z-1]*factor9;    
+       real_input[z]= real_input[z]*factor6;
+       input_imag[z]= input_imag[z]*factor6;
+       real_input[SIZE-z-1]=real_input[SIZE-z-1]*factor6;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor6;    
         }            
      }
         
      // Inverse fft
        for(int i=0; i < SIZE; i++){
-        //#pragma HLS unroll
-         imag_input[i] = (-1)*imag_input[i];
+         input_imag[i] = (-1)*input_imag[i];
        }
-       fft(real_input.data(), imag_input.data());
+       fft(real_input.data(), input_imag.data());
    
        for(int i=0; i < SIZE; i++){
-        //#pragma HLS unroll
-         imag_input[i] = (-1)*imag_input[i];
+         input_imag[i] = (-1)*input_imag[i];
        }   
        for(int i=0; i < SIZE; i++){
-        //#pragma HLS unroll
          real_input[i] = real_input[i]/SIZE;
-         imag_input[i] = imag_input[i]/SIZE;
+         input_imag[i] = input_imag[i]/SIZE;
        }
     
     // Open a file for writing
@@ -169,7 +165,7 @@ int main() {
     if (outputFile.is_open()) {
         // Write the real and imaginary parts to the file
         for (size_t i = 0; i < real_input.size(); ++i) {
-            outputFile << real_input[i] << " " << imag_input[i] << std::endl;
+            outputFile << real_input[i] << " " << input_imag[i] << std::endl;
         }
 
         // Close the file
@@ -182,7 +178,7 @@ int main() {
     std::cout << "Inverse FFT function has been called successfully!" << std::endl;
     for (size_t i = 0; i < real_input.size(); i++) {
         std::cout << "Index " << i <<": ("
-                  << real_input[i] << ", " << imag_input[i] << ")" << std::endl;
+                  << real_input[i] << ", " << input_imag[i] << ")" << std::endl;
     }
     std::cout << "The Base Freqency of the input signal= " << base_freq <<" Hz"<<std::endl;
    timer.stop();

@@ -1691,7 +1691,6 @@ void dut(hls::stream<bit32_t> &strm_in, hls::stream<bit32_t> &strm_out) {
     std::cout << "Start signal processing!" << std::endl;
     // Bandpass filter filter keep freq component(lowbound - highbound)
     for(int j=0;j<SIZE/2;j++){
-       // #pragma HLS pipeline
         if(freq[j]<lowbound||freq[j]>highbound){
             input_real[j]=0;
             input_real[SIZE-j-1]=0;
@@ -1718,71 +1717,73 @@ void dut(hls::stream<bit32_t> &strm_in, hls::stream<bit32_t> &strm_out) {
     }
         std::cout << "shift_idex= " << shift_idex <<std::endl;
        // Spectral attenuation 
-  for(int z=730; z<3330;z++){
+for(int z=730; z<3330;z++){
        //#pragma HLS pipeline
        if(z<1030){
+       input_real[z]= input_real[z]*factor1;
+       input_imag[z]= input_imag[z]*factor1;
+       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor1;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor1;    
+        }
+       else if(z<1430){
+       input_real[z]= input_real[z]*factor2;
+       input_imag[z]= input_imag[z]*factor2;
+       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor2;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor2;    
+        }
+       else if(z<1830){
+       input_real[z]= input_real[z]*factor3;
+       input_imag[z]= input_imag[z]*factor3;
+       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor3;
+       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor3;    
+        }
+       else if(z<2330){
        input_real[z]= input_real[z]*factor4;
        input_imag[z]= input_imag[z]*factor4;
        input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor4;
        input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor4;    
-        }
-       else if(z<1430){
+        } 
+       else if(z<2730){
        input_real[z]= input_real[z]*factor5;
        input_imag[z]= input_imag[z]*factor5;
        input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor5;
        input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor5;    
         }
-       else if(z<1830){
+        else{
        input_real[z]= input_real[z]*factor6;
        input_imag[z]= input_imag[z]*factor6;
        input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor6;
        input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor6;    
-        }
-       else if(z<2330){
-       input_real[z]= input_real[z]*factor7;
-       input_imag[z]= input_imag[z]*factor7;
-       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor7;
-       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor7;    
-        } 
-       else if(z<2730){
-       input_real[z]= input_real[z]*factor8;
-       input_imag[z]= input_imag[z]*factor8;
-       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor8;
-       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor8;    
-        }
-        else{
-       input_real[z]= input_real[z]*factor9;
-       input_imag[z]= input_imag[z]*factor9;
-       input_real[SIZE-z-1]=input_real[SIZE-z-1]*factor9;
-       input_imag[SIZE-z-1]=input_imag[SIZE-z-1]*factor9;    
         }            
      }
      // Inverse fft
        for(int i=0; i < SIZE; i++){
-            //  #pragma HLS unroll
+        #pragma HLS unroll factor=16
          input_imag[i] = (-1)*input_imag[i];
        }
        fft(input_real, input_imag);
    
        for(int i=0; i < SIZE; i++){
-              //#pragma HLS unroll        
+         #pragma HLS unroll factor=16
          input_imag[i] = (-1)*input_imag[i];
        }   
        for(int i=0; i < SIZE; i++){
+        #pragma HLS unroll factor=16
          input_real[i] = input_real[i]/SIZE;
          input_imag[i] = input_imag[i]/SIZE;
        }
-  for(int i = 0; i < SIZE; i++){
-    float out_real = input_real[i];
-    float out_imag = input_imag[i];
+        for(int i = 0; i < SIZE; i++){
+    
+            float out_real = input_real[i];
+            float out_imag = input_imag[i];
 
-    dut_1 u3 = {.dut_fval = out_real};
-    dut_1 u4 = {.dut_fval = out_imag};
+            dut_1 u3 = {.dut_fval = out_real};
+            dut_1 u4 = {.dut_fval = out_imag};
 
 
-   strm_out.write(u3.dut_ival);
-   strm_out.write(u4.dut_ival);
-  }
+        strm_out.write(u3.dut_ival);
+        strm_out.write(u4.dut_ival);
+        }
 
   // ------------------------------------------------------
   // Output processing
@@ -1805,40 +1806,491 @@ void fft(DTYPE X_R[SIZE], DTYPE X_I[SIZE]) {
     DTYPE a, e, c, s;
 
   stage_loop:
-    for (stage = 1; stage <= M; stage++) { // Do M stages of butterflies
-        DFTpts = 1 << stage;                                 // DFT = 2^stage = points in sub DFT
-        numBF = DFTpts / 2;                                     // Butterfly WIDTHS in sub-DFT
+    //----------------------------------- STAGE 1-----------------------------------------//
+        DFTpts = 1 << 1;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
         k = 0;
         e = -6.283185307178 / DFTpts;
         a = 0.0;
-    // Perform butterflies for j-th stage
-    butterfly_loop:
+        butterfly_loop1:
         for (j = 0; j < numBF; j++) {
             c = cosa_lookup_table[k];
             s = sina_lookup_table[k];
             a = a + e;
-        // Compute butterflies that use same W**k
-        dft_loop:
-            for (i = j; i < SIZE; i += DFTpts) {
-                // #pragma HLS loop_tripcount max = 1171
-                i_lower = i + numBF; // index of lower point in butterfly
-                temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
-                temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
-                X_R[i_lower] = X_R[i] - temp_R;
-                X_I[i_lower] = X_I[i] - temp_I;
-                X_R[i] = X_R[i] + temp_R;
-                X_I[i] = X_I[i] + temp_I;
+
+            // Manually unroll dft_loop1
+            dft_loop1:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
             }
             k += step;
         }
         step = step / 2;
-    }
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 2-----------------------------------------//
+        DFTpts = 1 << 2;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop2:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop2:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 3-----------------------------------------//
+        DFTpts = 1 << 3;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop3:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop3:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 4-----------------------------------------//
+        DFTpts = 1 << 4;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop4:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop4:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 5-----------------------------------------//
+        DFTpts = 1 << 5;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop5:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop5:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 6-----------------------------------------//
+        DFTpts = 1 << 6;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop6:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop6:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 7-----------------------------------------//
+        DFTpts = 1 << 7;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop7:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop7:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 8-----------------------------------------//
+        DFTpts = 1 << 8;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop8:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop8:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 9-----------------------------------------//
+        DFTpts = 1 << 9;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop9:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop9:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 10-----------------------------------------//
+        DFTpts = 1 << 10;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop10:
+        for (j = 0; j < numBF; j++) {
+
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop10:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 11-----------------------------------------//
+        DFTpts = 1 << 11;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop11:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop11:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 12-----------------------------------------//
+        DFTpts = 1 << 12;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop12:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop12:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 13-----------------------------------------//
+        DFTpts = 1 << 13;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop13:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop13:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+                                // #pragma HLS pipeline
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
+
+    //----------------------------------- STAGE 14-----------------------------------------//
+        DFTpts = 1 << 14;           // DFT = 2^stage = points in sub DFT
+        numBF = DFTpts / 2;           // Butterfly WIDTHS in sub-DFT
+        k = 0;
+        e = -6.283185307178 / DFTpts;
+        a = 0.0;
+    // Perform butterflies for j-th stage
+    butterfly_loop14:
+        for (j = 0; j < numBF; j++) {
+            c = cosa_lookup_table[k];
+            s = sina_lookup_table[k];
+            a = a + e;
+
+            // Manually unroll dft_loop1
+            dft_loop14:
+            for (int unroll_index = 0; unroll_index < SIZE / DFTpts; unroll_index++) {
+
+                                // #pragma HLS pipeline
+                i = j + unroll_index * DFTpts;
+                if (i < SIZE) {
+                    i_lower = i + numBF; // index of lower point in butterfly
+                    if (i_lower < SIZE) {
+                        temp_R = X_R[i_lower] * c - X_I[i_lower] * s;
+                        temp_I = X_I[i_lower] * c + X_R[i_lower] * s;
+                        X_R[i_lower] = X_R[i] - temp_R;
+                        X_I[i_lower] = X_I[i] - temp_I;
+                        X_R[i] = X_R[i] + temp_R;
+                        X_I[i] = X_I[i] + temp_I;
+                    }
+                }
+            }
+            k += step;
+        }
+        step = step / 2;
+    //-------------------------------------------------------------------------------------//
 }
 
 
 unsigned int reverse_bits(unsigned int input) {
     int i, rev = 0;
     for (i = 0; i < FFT_BITS; i++) {
+    #pragma HLS pipeline
         rev = (rev << 1) | (input & 1);
         input = input >> 1;
     }
@@ -1851,7 +2303,7 @@ void bit_reverse(DTYPE X_R[SIZE], DTYPE X_I[SIZE]) {
     DTYPE temp;
 
     for (i = 0; i < SIZE; i++) {
-      //#pragma HLS pipeline
+    #pragma HLS pipeline
         reversed = reverse_bits(i); // Find the bit reversed index
         if (i < reversed) {
             // Swap the real values
