@@ -43,7 +43,7 @@ If you want to replace the input audio data or convert the `output.dat` back to 
 - For the software testbench on ARM, run `make sw` in the `/zedboard` directory to generate the `output.dat` when you load the file on FPGA.
 
 #### Running on FPGA
-- First, run `make xillydemo.bit` in the `/ecelinux` directory to generate the bitstream.
+- First, run `vivado_hls -f run.tcl` and 'source run_bitstream.sh' in the `/ecelinux` directory to generate the bitstream.
 - After loading the file and mounting the bitstream on FPGA, run `make fpga` in the `/zedboard` directory to generate the `output.dat`.
 
 ### Input and Output Files
