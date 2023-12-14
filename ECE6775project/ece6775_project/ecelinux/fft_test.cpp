@@ -105,7 +105,7 @@ int main() {
     }
         std::cout << "shift_idex= " << shift_idex <<std::endl;
        // Spectral attenuation
-for(int z=730; z<3330;z++){
+for(int z=730; z<3330;z++){          // 3330 = 2420Hz
        //#pragma HLS pipeline
        if(z<1030){
        real_input[z]= real_input[z]*factor1;
