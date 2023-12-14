@@ -26,6 +26,6 @@ def create_wav(real_file, imag_file, sample_rate, output_file):
 real_file = 'column1.txt'  # Filename for the real part
 imag_file = 'column2.txt'  # Filename for the imaginary part
 sample_rate = 12000        # Sample rate, e.g., 44100 Hz
-output_file = '2.wav'      # Output filename
+output_file = 'output.wav'      # Output filename
 
 create_wav(real_file, imag_file, sample_rate, output_file)
